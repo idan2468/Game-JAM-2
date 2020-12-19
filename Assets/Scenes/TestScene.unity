@@ -1225,13 +1225,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449683988}
-  m_LocalRotation: {x: 0, y: -0.007068574, z: 0, w: 0.999975}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4.446434, z: 1}
   m_LocalScale: {x: 3.781433, y: 3.781433, z: 3.781433}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -0.81, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &508669104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,13 +2620,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.004070262, y: 0.7633372, z: -0.64596957, w: 0.004809962}
-  m_LocalPosition: {x: -0.5, y: 21.1, z: 4}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: -0.5, y: 21.1, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &980053081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,9 +2890,6 @@ MonoBehaviour:
   rayCastDistFactor: 2
   cam: {fileID: 963194228}
   throwingObj: {fileID: 0}
-  throwForce: 2
-  orgLocalPosThrowObj: {x: 0, y: 0, z: 0}
-  dist: 0
 --- !u!143 &1115561503
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3963,9 +3960,6 @@ MonoBehaviour:
   rayCastDistFactor: 5
   cam: {fileID: 963194228}
   throwingObj: {fileID: 1771786984}
-  throwForce: 2
-  orgLocalPosThrowObj: {x: 0, y: 0, z: 0}
-  dist: 0
 --- !u!4 &1718520228
 Transform:
   m_ObjectHideFlags: 0
@@ -4092,6 +4086,8 @@ GameObject:
   - component: {fileID: 1771786985}
   - component: {fileID: 1771786987}
   - component: {fileID: 1771786986}
+  - component: {fileID: 1771786988}
+  - component: {fileID: 1771786989}
   m_Layer: 0
   m_Name: ThrowObj
   m_TagString: Untagged
@@ -4162,6 +4158,35 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771786984}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1771786988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771786984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5be775ddb550f42864ad02d1c55b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 10
+  throwForce: 20
+--- !u!114 &1771786989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771786984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0395040eb07b83f49aa24344cf942814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  endOfPathInstruction: 2
+  speed: 10
 --- !u!1 &1867459679
 GameObject:
   m_ObjectHideFlags: 0
