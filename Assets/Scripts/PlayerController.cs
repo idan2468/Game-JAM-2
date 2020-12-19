@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using PathCreation;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 2f;
     [SerializeField] private float rayCastDistFactor = 2f;
     [SerializeField] private Transform cam;
+    [SerializeField] private GameObject throwingObj;
     private string HorizontalAxis = "Horizontal";
     private string VerticalAxis = "Vertical";
     private string FrontHand = "FrontHand";
@@ -15,8 +17,6 @@ public class PlayerController : MonoBehaviour
     private string LeftHand = "LeftHand";
     private string RightHand = "RightHand";
     private CharacterController _playerController;
-
-    [SerializeField] private float dist;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
         var horizontal = Input.GetAxis(HorizontalAxis);
         var dir = PlayerMove(new Vector3(horizontal, 0, vertical));
         var velocity = dir * speed;
-        // RotationHandler(dir);
         _playerController.Move(velocity * Time.deltaTime);
     }
 
@@ -63,7 +62,27 @@ public class PlayerController : MonoBehaviour
         var forwardAccordingToCamera = Quaternion.Euler(0f, forwardDir, 0f) * dir;
         var rotation = Quaternion.LookRotation(forwardAccordingToCamera);
         var step = rotationSpeed * Time.deltaTime;
-        transform.rotation = Quaternion.Lerp(transform.rotation,rotation,step);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, step);
         return forwardAccordingToCamera;
     }
+
+    // private void Throw()
+    // {
+    //     var height = 5f;
+    //     var target = throwingObj.transform.position;
+    //     throwingObj.transform.localPosition = orgLocalPosThrowObj;
+    //     var start = throwingObj.transform.position;
+    //     // Debug.DrawLine(start, target, Color.red, 2f);
+    //     var midPoint = (target + start) / 2;
+    //     midPoint.y += height;
+    //     // Debug.DrawLine(start, midPoint, Color.cyan, 2f);
+    //     BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, target});
+    //     var ballisticGameObject = Instantiate(new GameObject());
+    //     var pc = ballisticGameObject.AddComponent<PathCreator>();
+    //     var pathFollow = throwingObj.AddComponent<PathFollow>();
+    //     pc.bezierPath = path;
+    //     pc.bezierPath.AutoControlLength = 0.5f;
+    //     pathFollow.pathCreator = pc;
+    //     // path.AutoControlLength = 0.5f;
+    // }
 }
