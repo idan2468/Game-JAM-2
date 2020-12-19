@@ -37,7 +37,7 @@ public class ThrowerController : MonoBehaviour
 
         if (_throwingObjects.Count == 1)
         {
-            _throwingObjects.Add(Instantiate(_throwingObjects.First(),transform));
+            _throwingObjects.Add(Instantiate(_throwingObjects.First(), transform));
         }
 
         _currThrowingObj = _throwingObjects.First();
@@ -52,7 +52,7 @@ public class ThrowerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             _currThrowingObj.SetActive(true);
-            _currThrowingObj.transform.position += _currThrowingObj.transform.forward * (throwForce * Time.deltaTime);
+            _currThrowingObj.transform.position += gameObject.transform.forward * (throwForce * Time.deltaTime);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -82,5 +82,13 @@ public class ThrowerController : MonoBehaviour
         pc.bezierPath.AutoControlLength = 0.5f;
 
         _pathFollow.pathCreator = pc;
+    }
+
+    public void AddObjToThrow(GameObject obj)
+    {
+        obj.transform.SetParent(gameObject.transform);
+        obj.transform.localPosition = _orgLocalPosThrowObj;
+        _throwingObjects.Insert(0, obj);
+        SetNextThrowingObj();
     }
 }
