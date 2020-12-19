@@ -52,7 +52,7 @@ public class ThrowerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             _currThrowingObj.SetActive(true);
-            _currThrowingObj.transform.position += gameObject.transform.forward * (throwForce * Time.deltaTime);
+            _currThrowingObj.transform.position += transform.forward * (throwForce * Time.deltaTime);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -86,7 +86,7 @@ public class ThrowerController : MonoBehaviour
 
     public void AddObjToThrow(GameObject obj)
     {
-        obj.transform.SetParent(gameObject.transform);
+        obj.transform.SetParent(transform);
         obj.transform.localPosition = _orgLocalPosThrowObj;
         _throwingObjects.Insert(0, obj);
         SetNextThrowingObj();
