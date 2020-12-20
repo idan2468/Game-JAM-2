@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4766708656414810937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4766708656414810939}
+  - component: {fileID: 4766708656414810936}
+  m_Layer: 0
+  m_Name: Path
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4766708656414810939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4766708656414810937}
+  m_LocalRotation: {x: 0, y: 0.71135163, z: 0, w: 0.7028363}
+  m_LocalPosition: {x: -3.6367054, y: -2, z: 2.7654343}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90.69, z: 0}
+--- !u!114 &4766708656414810936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4766708656414810937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorData:
+    _bezierPath:
+      points:
+      - {x: -26.425123, y: 0, z: 12.65256}
+      - {x: -20.6655, y: 0, z: 13.284636}
+      - {x: -16.453041, y: 0, z: 12.602546}
+      - {x: -7.2009916, y: 0, z: 14.445908}
+      - {x: -2.288903, y: 0, z: 15.424583}
+      - {x: 1.348803, y: 0, z: 15.9726715}
+      - {x: 4.149252, y: 0, z: 15.375661}
+      - {x: 5.4316597, y: 0, z: 15.102272}
+      - {x: 5.4741755, y: 0, z: 12.761319}
+      - {x: 3.9463518, y: 0, z: 11.803209}
+      - {x: 2.2635894, y: 0, z: 10.747935}
+      - {x: 0.63883734, y: 0, z: 10.228288}
+      - {x: -1.0239818, y: 0, z: 9.5193405}
+      - {x: -3.7123346, y: 0, z: 8.373155}
+      - {x: -6.7764044, y: 0, z: 7.199853}
+      - {x: -5.804619, y: 0, z: 4.6487923}
+      - {x: -4.148467, y: 0, z: 0.3011873}
+      - {x: 1.7384883, y: 0, z: 2.6286716}
+      - {x: 5.8003645, y: 0, z: 3.8725653}
+      - {x: 9.829672, y: 0, z: 5.1064854}
+      - {x: 15.653446, y: 0, z: 6.3937645}
+      - {x: 16.308487, y: 0, z: 2.984774}
+      - {x: 16.784243, y: 0, z: 0.50882673}
+      - {x: 14.079248, y: 0, z: -0.44582102}
+      - {x: 10.970579, y: 0, z: -0.4524463}
+      - {x: 8.441462, y: 0, z: -0.45783642}
+      - {x: 4.448024, y: 0, z: 0.38822463}
+      - {x: 4.844119, y: 0, z: -2.0961056}
+      - {x: 5.5687437, y: 0, z: -6.6409826}
+      - {x: 9.77871, y: 0, z: -7.3882174}
+      - {x: 13.7324705, y: 0, z: -10.06628}
+      - {x: 16.432161, y: 0, z: -11.894905}
+      - {x: 18.002317, y: 0, z: -12.492589}
+      - {x: 21.037851, y: 0, z: -13.683272}
+      - {x: 23.142376, y: 0, z: -14.508769}
+      - {x: 24.799618, y: 0, z: -14.898325}
+      - {x: 26.456861, y: 0, z: -15.287881}
+      isClosed: 0
+      space: 0
+      controlMode: 0
+      autoControlLength: 0.4
+      boundsUpToDate: 0
+      bounds:
+        m_Center: {x: 0.021759033, y: -0.25954914, z: -0.124788284}
+        m_Extent: {x: 26.440992, y: 1.1651103, z: 15.652258}
+      perAnchorNormalsAngle:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      globalNormalsAngle: 90
+      flipNormals: 0
+    vertexPathUpToDate: 0
+    vertexPathMaxAngleError: 0
+    vertexPathMinVertexSpacing: 0
+    showTransformTool: 1
+    showPathBounds: 0
+    showPerSegmentBounds: 0
+    displayAnchorPoints: 1
+    displayControlPoints: 1
+    bezierHandleScale: 1
+    globalDisplaySettingsFoldout: 1
+    keepConstantHandleSize: 0
+    showNormalsInVertexMode: 0
+    showBezierPathInVertexMode: 0
+    showDisplayOptions: 1
+    showPathOptions: 1
+    showVertexPathDisplayOptions: 1
+    showVertexPathOptions: 1
+    showNormals: 1
+    showNormalsHelpInfo: 0
+    tabIndex: 0
+  initialized: 1

@@ -74,8 +74,10 @@ public class ThrowerController : MonoBehaviour
         midPoint.y += height;
         // Debug.DrawLine(start, midPoint, Color.cyan, 2f);
 
-        BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, target});
-        path.AutoControlLength = .5f;
+        BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, target})
+        {
+            AutoControlLength = .5f, GlobalNormalsAngle = 90
+        };
         var ballisticPathGO = new GameObject();
         var pc = ballisticPathGO.AddComponent<PathCreator>();
         pc.bezierPath = path;

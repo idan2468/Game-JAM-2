@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class Catcher : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class Catcher : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _throwerAPI.AddObjToThrow(other.gameObject);
+        if (other.gameObject.transform.parent != _thrower)
+        {
+            other.gameObject.GetComponent<Collider>().enabled =false;
+            _throwerAPI.AddObjToThrow(other.gameObject);    
+        }
     }
 }
