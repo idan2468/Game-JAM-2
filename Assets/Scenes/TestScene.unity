@@ -1684,24 +1684,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 50.1744, z: 61.57}
   m_Center: {x: 0, y: 14.272202, z: 0}
---- !u!1 &1287697041 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2524522926144096053, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-  m_PrefabInstance: {fileID: 2524522926767830388}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1287697046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287697041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c31e601cc6faa04d8fcaa426bcc0f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _thrower: {fileID: 1886256330}
 --- !u!1 &1482838410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,11 +2117,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881529568}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1886256330 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2524522925248497597, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-  m_PrefabInstance: {fileID: 2524522926767830388}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1888226373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,26 +2399,6 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194228}
-    - target: {fileID: 2524522925248497599, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-      propertyPath: height
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2524522925248497599, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-      propertyPath: ballisticPath
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2524522925448326847, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2524522926144096048, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e6b9b44320f4448d9d5e0ee634259966, type: 2}
-    - target: {fileID: 2524522926144096055, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
 --- !u!1001 &2734856067551933274

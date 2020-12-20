@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class Catcher : MonoBehaviour
@@ -19,7 +20,6 @@ public class Catcher : MonoBehaviour
     //#todo Check if the golem is empty handed before adding the obj (here or just in addObjToThrow
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponent<Collider>().enabled = false;
         _throwerAPI.AddObjToThrow(other.gameObject);
     }
 }
