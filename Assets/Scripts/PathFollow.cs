@@ -6,6 +6,7 @@ using PathCreation;
 public class PathFollow : MonoBehaviour
 {
     public PathCreator pathCreator;
+    public GameObject pathObj;
     public EndOfPathInstruction endOfPathInstruction;
     public float speed = 10;
     float distanceTravelled;
@@ -22,6 +23,13 @@ public class PathFollow : MonoBehaviour
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+            if (distanceTravelled >= pathCreator.path.length)
+            {
+                Debug.Log("Distance traveled : " + distanceTravelled);
+                Debug.Log("Disconnected from path... \n Removing path");
+                pathCreator = null;
+                Destroy(pathObj);
+            }
         }
     }
 

@@ -11,7 +11,6 @@ public class ThrowerController : MonoBehaviour
     private Vector3 _orgLocalPosThrowObj;
     private List<GameObject> _throwingObjects;
     private GameObject _currThrowingObj;
-
     private PathFollow _pathFollow;
 
     // Start is called before the first frame update
@@ -76,12 +75,13 @@ public class ThrowerController : MonoBehaviour
         // Debug.DrawLine(start, midPoint, Color.cyan, 2f);
 
         BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, target});
-        var ballisticPathGO = Instantiate(new GameObject());
+        path.AutoControlLength = .5f;
+        var ballisticPathGO = new GameObject();
         var pc = ballisticPathGO.AddComponent<PathCreator>();
         pc.bezierPath = path;
-        pc.bezierPath.AutoControlLength = 0.5f;
 
         _pathFollow.pathCreator = pc;
+        _pathFollow.pathObj = ballisticPathGO;
     }
 
     public void AddObjToThrow(GameObject obj)
