@@ -16,13 +16,10 @@ public class Catcher : MonoBehaviour
     void Update()
     {
     }
-
+    //#todo Check if the golem is empty handed before adding the obj (here or just in addObjToThrow
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.transform.parent != _thrower)
-        {
-            other.gameObject.GetComponent<Collider>().enabled =false;
-            _throwerAPI.AddObjToThrow(other.gameObject);    
-        }
+        other.gameObject.GetComponent<Collider>().enabled = false;
+        _throwerAPI.AddObjToThrow(other.gameObject);
     }
 }
