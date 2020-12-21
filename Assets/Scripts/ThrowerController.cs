@@ -79,7 +79,7 @@ public class ThrowerController : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     public void Throw(Vector3 target)
     {
-        // target.y = -4.5f / 2;
+        target.y = -4.5f / 2;
         var start = _currThrowingObj.transform.position;
         // Debug.DrawLine(start, target, Color.red, 2f);
         var midPoint = (target + start) / 2;
