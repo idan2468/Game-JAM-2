@@ -77,7 +77,9 @@ public class ThrowerController : MonoBehaviour
         {
             if (degree >= -135f && degree <= -45f)
             {
+<<<<<<< Updated upstream
                 _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
+=======
                 if (degree >= -(180f - _degreeBoundary) && degree <= -_degreeBoundary)
                 {
                     _target.transform.position += _targetOriginalRight * throwForce * Time.deltaTime;
@@ -86,6 +88,7 @@ public class ThrowerController : MonoBehaviour
                 {
                     _target.transform.position += _targetOriginalLeft * throwForce * Time.deltaTime;
                 }
+>>>>>>> Stashed changes
             }
             else
             {
