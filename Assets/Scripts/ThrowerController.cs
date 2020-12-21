@@ -23,6 +23,7 @@ public class ThrowerController : MonoBehaviour
     private Vector3 _targetOriginalLeft; 
     private Vector3 _targetOriginalRight;
     private bool _isAiming; // currently aiming _target
+    [SerializeField] private float _boundaryDegree = 45f;
 
     // Start is called before the first frame update
     void Start()
@@ -70,11 +71,11 @@ public class ThrowerController : MonoBehaviour
 
     private void HandleAimModePhysics()
     {
-        // If -135 <= degree <= -45 (i.e. facing down) switch A and D 
+        // If direction is withing boundaries then switch A and D 
         var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
         if (Input.GetKey(KeyCode.A))
         {
-            if (degree >= -135f && degree <= -45f)
+            if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
             {
                 _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
             }
