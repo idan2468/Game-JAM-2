@@ -35,38 +35,41 @@ public class ThrowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Only move target if aiming
-       
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EnterAimMode();
         }
+        // Only move target if aiming
         if (_isAiming)
         {
-            
             HandleAimModePhysics();
         }
-       
-
         if (Input.GetKeyUp(KeyCode.Space))
         {
             if (_currThrowingObj == null)
             {
                 return;
             }
-            _isAiming = false;
-            _target.transform.parent = gameObject.transform;
-            
-            var targetLoc = _target.transform.position;
-            _target.transform.localPosition = _orgLocalPosTargetObj;
-            
-            _currThrowingObj.transform.SetParent(null);
-            
-            _target.SetActive(false);
+            var targetLoc = ExitAimMode();
             Throw(targetLoc);
             _currThrowingObj = null;
         }
+    }
+    /**
+     * Exit Aim mode and returns the aim word position to throw the object.
+     */
+    private Vector3 ExitAimMode()
+    {
+        _isAiming = false;
+        _target.transform.parent = gameObject.transform;
+
+        var targetLoc = _target.transform.position;
+        _target.transform.localPosition = _orgLocalPosTargetObj;
+
+        _currThrowingObj.transform.SetParent(null);
+
+        _target.SetActive(false);
+        return targetLoc;
     }
 
     private void HandleAimModePhysics()
@@ -116,7 +119,6 @@ public class ThrowerController : MonoBehaviour
             Debug.LogWarning("No Object to throw");
             return;
         }
-
         _target.transform.parent = null;
         _isAiming = true;
         _targetOriginalForward = transform.forward;
@@ -155,7 +157,5 @@ public class ThrowerController : MonoBehaviour
         obj.transform.localPosition = startLocalTransformThrowingObj.localPosition;
         obj.transform.localRotation = startLocalTransformThrowingObj.localRotation;
         _currThrowingObj = obj;
-        // _throwingObjects.Insert(0, obj);
-        // SetNextThrowingObj();
     }
 }
