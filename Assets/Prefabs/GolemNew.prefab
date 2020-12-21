@@ -674,6 +674,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thrower
       objectReference: {fileID: 0}
+    - target: {fileID: 6829879773632544942, guid: 5b1b2a911d5ab4e4fbc2a60e9204c93c, type: 3}
+      propertyPath: startLocalTransformThrowingObj
+      value: 
+      objectReference: {fileID: 2524522925282305949}
     - target: {fileID: 6829879773632544943, guid: 5b1b2a911d5ab4e4fbc2a60e9204c93c, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -733,5 +737,10 @@ Transform:
 --- !u!1 &2524522925282305948 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6829879773598195853, guid: 5b1b2a911d5ab4e4fbc2a60e9204c93c, type: 3}
+  m_PrefabInstance: {fileID: 9061369230711719697}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2524522925282305949 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6829879773598195852, guid: 5b1b2a911d5ab4e4fbc2a60e9204c93c, type: 3}
   m_PrefabInstance: {fileID: 9061369230711719697}
   m_PrefabAsset: {fileID: 0}
