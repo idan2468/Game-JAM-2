@@ -732,10 +732,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4104018726664549992, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4104018726664549993, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
       propertyPath: m_Name
       value: Capsule (6)
@@ -1280,11 +1276,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813318773}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &849979745 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2524522925282305949, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-  m_PrefabInstance: {fileID: 2524522926767830388}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &891757341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,11 +2394,7 @@ PrefabInstance:
     - target: {fileID: 2524522925122256087, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 963194228}
-    - target: {fileID: 2524522925248497599, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-      propertyPath: startLocalTransformThrowingObj
-      value: 
-      objectReference: {fileID: 849979745}
+      objectReference: {fileID: 2734856068506590766, guid: 10bc3f9816df68045b1386fd763697ad, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
 --- !u!1001 &2734856067551933274
