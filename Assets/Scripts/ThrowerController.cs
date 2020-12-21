@@ -13,7 +13,13 @@ public class ThrowerController : MonoBehaviour
     private List<GameObject> _throwingObjects;
     private GameObject _currThrowingObj;
     private PathFollow _pathFollow;
+
     [SerializeField] private GameObject _target;
+    // Forward/left/right vectors at time of fire
+    private Vector3 _targetOriginalForward; 
+    private Vector3 _targetOriginalLeft; 
+    private Vector3 _targetOriginalRight;
+    private bool _isTargeting; // currently aiming _target
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,7 @@ public class ThrowerController : MonoBehaviour
             _throwingObjects.Add(child.gameObject);
         }
 
+        _isTargeting = false;
         _orgLocalPosTargetObj = _target.transform.localPosition;
         SetNextThrowingObj();
     }
@@ -51,17 +58,36 @@ public class ThrowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.A))
+        {
+            _target.transform.position += _targetOriginalLeft * throwForce * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            _target.transform.position += _targetOriginalRight * throwForce * Time.deltaTime;
+        }
+
         if (Input.GetKey(KeyCode.Space))
         {
+            _target.transform.parent = null;
             // _currThrowingObj.SetActive(true);
             // _currThrowingObj.transform.position += transform.forward * (throwForce * Time.deltaTime);
+            if (_isTargeting == false)
+            {
+                _isTargeting = true;
+                _targetOriginalForward = transform.forward;
+                _targetOriginalLeft = -transform.right;
+                _targetOriginalRight = transform.right;
+            }
+
             _target.SetActive(true);
-            _target.transform.position += transform.forward * (throwForce * Time.deltaTime);
+            _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            
+            _isTargeting = false;
+            _target.transform.parent = gameObject.transform;
             
             var targetLoc = _target.transform.position;
             _target.transform.localPosition = _orgLocalPosTargetObj;

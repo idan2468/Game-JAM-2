@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 PlayerMove(Vector3 dir)
     {
         if (dir.magnitude <= .1) return Vector3.zero;
-        var forwardDir = cam.gameObject.transform.eulerAngles.y;
+        var forwardDir = cam.eulerAngles.y;
         var forwardAccordingToCamera = Quaternion.Euler(0f, forwardDir, 0f) * dir;
         var rotation = Quaternion.LookRotation(forwardAccordingToCamera);
         var step = rotationSpeed * Time.deltaTime;
