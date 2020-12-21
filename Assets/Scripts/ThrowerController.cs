@@ -61,13 +61,30 @@ public class ThrowerController : MonoBehaviour
         // Only move target if aiming
         if (_isAiming)
         {
+            var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
+            Debug.Log(_targetOriginalForward);
+            Debug.Log(degree);
             if (Input.GetKey(KeyCode.A))
             {
-                _target.transform.position += _targetOriginalLeft * throwForce * Time.deltaTime;
+                if (degree >= -135f && degree <= -45f)
+                {
+                    _target.transform.position += _targetOriginalRight * throwForce * Time.deltaTime;
+                }
+                else
+                {
+                    _target.transform.position += _targetOriginalLeft * throwForce * Time.deltaTime;
+                }
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                _target.transform.position += _targetOriginalRight * throwForce * Time.deltaTime;
+                if (degree >= -135f && degree <= -45f)
+                {
+                    _target.transform.position += _targetOriginalLeft * throwForce * Time.deltaTime;
+                }
+                else
+                {
+                    _target.transform.position += _targetOriginalRight * throwForce * Time.deltaTime;
+                }
             }
         }
 
