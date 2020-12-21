@@ -61,9 +61,8 @@ public class ThrowerController : MonoBehaviour
         // Only move target if aiming
         if (_isAiming)
         {
+            // If -135 <= degree <= -45 (i.e. facing down) switch A and D 
             var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
-            Debug.Log(_targetOriginalForward);
-            Debug.Log(degree);
             if (Input.GetKey(KeyCode.A))
             {
                 if (degree >= -135f && degree <= -45f)
