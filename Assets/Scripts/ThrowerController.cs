@@ -23,7 +23,6 @@ public class ThrowerController : MonoBehaviour
     private Vector3 _targetOriginalLeft; 
     private Vector3 _targetOriginalRight;
     private bool _isAiming; // currently aiming _target
-    [SerializeField] private float _degreeBoundary = 45f; // boundary for switching A and D when facing down
 
     // Start is called before the first frame update
     void Start()
@@ -77,18 +76,7 @@ public class ThrowerController : MonoBehaviour
         {
             if (degree >= -135f && degree <= -45f)
             {
-<<<<<<< Updated upstream
                 _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-=======
-                if (degree >= -(180f - _degreeBoundary) && degree <= -_degreeBoundary)
-                {
-                    _target.transform.position += _targetOriginalRight * throwForce * Time.deltaTime;
-                }
-                else
-                {
-                    _target.transform.position += _targetOriginalLeft * throwForce * Time.deltaTime;
-                }
->>>>>>> Stashed changes
             }
             else
             {
