@@ -1280,11 +1280,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813318773}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &849979745 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2524522925282305949, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-  m_PrefabInstance: {fileID: 2524522926767830388}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &891757341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,10 +2399,22 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194228}
-    - target: {fileID: 2524522925248497599, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
-      propertyPath: startLocalTransformThrowingObj
+    - target: {fileID: 2524522925122256087, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
+      propertyPath: rotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524522926482059176, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 849979745}
+      objectReference: {fileID: 2100000, guid: 69561553b86bde34da494d1ffed3ba45, type: 2}
+    - target: {fileID: 2524522926482059181, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
+      propertyPath: m_Name
+      value: Face
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524522926740209926, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d2e1939e690034fb8d77fe8691ee17, type: 3}
 --- !u!1001 &2734856067551933274
