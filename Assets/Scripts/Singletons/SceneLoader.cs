@@ -20,6 +20,7 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         MoveToScene(Enum.GetName(typeof(Scene),scene));
     }
+
     public void MoveToScene(string sceneName)
     {
         switch (sceneName)

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class TempJewControler : MonoBehaviour
 {
-    enum State
+    public ObjectSpawner myObjectSpawner;
+
+    private Vector3 _centerPoint;
+    private float _zoneSize = 10f;
+
+    public enum State
     {
         Free,
         CaughtByEnemy,
@@ -12,6 +17,12 @@ public class TempJewControler : MonoBehaviour
         Thrown
     };
     private State _currentState = State.Free;
+
+    public State CurrentState
+    {
+        get => _currentState;
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,26 +33,62 @@ public class TempJewControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (_currentState == State.Free)
+        {
+            PlayerMove();
+        }
     }
 
-    public bool IsFree()
+    private void PlayerMove()
     {
-        return _currentState == State.Free;
+        // TODO: Add random movement within zone
     }
 
-    public bool IsCaughtByEnemy()
+    // Sets values to default for object pool
+    private void OnEnable()
     {
-        return _currentState == State.CaughtByEnemy;
+        // TODO: COMPLETE
+        _centerPoint = transform.position;
     }
 
-    public bool IsCaughtByGolem()
+    public void EnterFreeState()
     {
-        return _currentState == State.CaughtByGolem;
+        // TODO: COMPLETE 
+        _currentState = State.Free;
     }
 
-    public void SetState(string state)
+    public void EnterTaintState()
     {
-        
+        // TODO: COMPLETE 
+        _currentState = State.CaughtByEnemy;
+    }
+
+    public void EnterGolemState()
+    {
+        // TODO: COMPLETE 
+        _currentState = State.CaughtByGolem;
+    }
+
+    public void EnterThrownState()
+    {
+        // TODO: COMPLETE 
+        _currentState = State.Thrown;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name.Equals("Synagogue"))
+        {
+            // Score
+
+            // Back to object pool
+            myObjectSpawner.KillJew(gameObject);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireCube(_centerPoint, new Vector3(_zoneSize, 0f, _zoneSize));
     }
 }
