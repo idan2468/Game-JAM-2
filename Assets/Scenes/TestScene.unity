@@ -366,6 +366,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Capsule (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4104018726664549993, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
+      propertyPath: m_TagString
+      value: Jew
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
 --- !u!4 &261688198 stripped
@@ -736,6 +740,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Capsule (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4104018726664549993, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
+      propertyPath: m_TagString
+      value: Jew
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
 --- !u!4 &532711366 stripped
@@ -797,6 +805,10 @@ PrefabInstance:
     - target: {fileID: 4104018726664549993, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
       propertyPath: m_Name
       value: Capsule (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104018726664549993, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
+      propertyPath: m_TagString
+      value: Jew
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
@@ -1144,6 +1156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Capsule (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 4104018726664549993, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
+      propertyPath: m_TagString
+      value: Jew
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
 --- !u!4 &742745631 stripped
@@ -1397,6 +1413,7 @@ MonoBehaviour:
   rayCastDistFactor: 2
   cam: {fileID: 963194228}
   throwingObj: {fileID: 0}
+  isUsingAnimator: 0
 --- !u!143 &1115561503
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2299,6 +2316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Capsule (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4104018726664549993, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
+      propertyPath: m_TagString
+      value: Jew
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e384e18948dff4db614ddbf3650211, type: 3}
 --- !u!4 &2026203122 stripped
@@ -2473,6 +2494,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path
       objectReference: {fileID: 0}
+    - target: {fileID: 4766708656414810937, guid: 66ae2633024684a46b6910e029a61924, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4766708656414810939, guid: 66ae2633024684a46b6910e029a61924, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2529,6 +2554,10 @@ PrefabInstance:
     - target: {fileID: 6580292836588281996, guid: 1120e00cc73d6624fb34adfdd3cae0d5, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580292836588281996, guid: 1120e00cc73d6624fb34adfdd3cae0d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6580292836588282034, guid: 1120e00cc73d6624fb34adfdd3cae0d5, type: 3}
       propertyPath: m_RootOrder
