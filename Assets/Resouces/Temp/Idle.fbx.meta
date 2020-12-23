@@ -24,7 +24,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
+    importAnimatedCustomProperties: 1
     importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
@@ -38,7 +38,7 @@ ModelImporter:
       name: mixamo.com
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
+      firstFrame: 1
       lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0

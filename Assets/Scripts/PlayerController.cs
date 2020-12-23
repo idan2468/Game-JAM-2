@@ -12,16 +12,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject throwingObj;
     private string HorizontalAxis = "Horizontal";
     private string VerticalAxis = "Vertical";
-    private string FrontHand = "FrontHand";
-    private string BackHand = "BackHand";
-    private string LeftHand = "LeftHand";
-    private string RightHand = "RightHand";
+    private int throwId = Animator.StringToHash("Throw");
+    private int speedId = Animator.StringToHash("Speed");
     private CharacterController _playerController;
+    private Animator _myAnimator;
+    [Header("Animation")]
+    [SerializeField] private bool isUsingAnimator = false;
+    private Vector3? savedPosition = null;
 
     // Start is called before the first frame update
     void Start()
     {
         _playerController = GetComponent<CharacterController>();
+        if (isUsingAnimator)
+        {
+            _myAnimator = GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +37,15 @@ public class PlayerController : MonoBehaviour
         var horizontal = Input.GetAxis(HorizontalAxis);
         var dir = PlayerMove(new Vector3(horizontal, 0, vertical));
         var velocity = dir * speed;
+        if (isUsingAnimator)
+        {
+            _myAnimator.SetFloat(speedId, velocity.magnitude);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _myAnimator.SetTrigger(throwId);
+            }
+        }
+
         _playerController.Move(velocity * Time.deltaTime);
     }
 
