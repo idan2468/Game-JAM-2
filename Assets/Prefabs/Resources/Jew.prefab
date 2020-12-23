@@ -16,11 +16,11 @@ GameObject:
   - component: {fileID: 3809841220796791415}
   m_Layer: 0
   m_Name: Jew
-  m_TagString: Untagged
+  m_TagString: Jew
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3809841220796791409
 Transform:
   m_ObjectHideFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3809841220796791373}
   m_LocalRotation: {x: -0, y: -0.34213313, z: -0, w: 0.9396515}
-  m_LocalPosition: {x: -8.805803, y: 0, z: -2.0830708}
+  m_LocalPosition: {x: -55.933292, y: 0, z: -1.2439365}
   m_LocalScale: {x: 2.4852, y: 2.4852, z: 2.4852}
   m_Children:
   - {fileID: 3809841222115079488}
