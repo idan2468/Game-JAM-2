@@ -25,11 +25,7 @@ public class TempEnemyControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If tainting do nothing
-        if (_isTainting)
-        {
-            if (_jew == null) StopTainting();
-        }
+        _isTainting = _jew != null;
 
         // Otherwise move towards closest Jew
         if(!_isTainting)
@@ -40,58 +36,65 @@ public class TempEnemyControler : MonoBehaviour
         }
     }
 
-    public void RemoveJew()
-    {
-        _jew = null;
-    }
-
     // Move enemy in direction of _currentTargetPosition
     private void EnemyMove()
     {
+        // TODO: ANIMATION
         transform.position += (_currentTargetPosition - transform.position) * Time.deltaTime * _speed;
     }
 
-    // TODO: WATCH OUT FOR _jew BEING NULL BEFORE OnUpdate() (SHOULDN'T BE A PROBLEM)
-    // Switch to tainting mode, add jew to enemy, start fade
-    private void StartTainting(GameObject jew)
+    // Switch to tainting mode, add jew, start fade
+    private void StartTainting(GameObject jew, bool success)
     {
-        _isTainting = true;
-        _enemyAnimator.SetBool("isTainting", _isTainting);
-        bool successfullyTainted = true;
+        // TODO: ANIMATION
 
         _jew = jew;
+
         var jewMaterial = _jew.GetComponent<Material>();
         var fadeTweener = jewMaterial.DOFade(0, _taintDuration);
         fadeTweener.OnUpdate(() =>
         {
             // Tainting was interrupted, set alpha back to 1
-            if (_jew == null)
+            if (!_jew.GetComponent<TempJewControler>().IsCaughtByEnemy())
             {
                 // TODO: TRY TO REFORMAT
                 var currentColor = jewMaterial.color;
                 currentColor.a = 1;
                 jewMaterial.SetColor("Color", currentColor);
                 fadeTweener.Kill();
-                successfullyTainted = false;
+                success = false;
             }
         });
-
-        if (successfullyTainted) myObjectSpawner.KillJew(_jew);
     }
 
-    private void StopTainting()
+    private void StopTainting(bool success)
     {
-        _isTainting = false;
-        _enemyAnimator.SetBool("isTainting", _isTainting);
+        // TODO: ANIMATION
+
+        if (success) // Destroy Jew if tainting uninterrupted
+        {
+            myObjectSpawner.KillJew(_jew);
+        }
+        _jew = null;
+    }
+
+    private void TaintingProcess(GameObject jew)
+    {
+        bool successfullyTainted = true;
+        StartTainting(jew, successfullyTainted);
+        StopTainting(successfullyTainted);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Handle Jew trigger
+        // Catch Jew if he's free
         // TODO: ADD CONDITION PREVENTING TAKING JEW FROM GOLEM
         if (other.tag.Equals("Jew"))
         {
-            StartTainting(other.gameObject);
+            if (other.GetComponent<TempJewControler>().IsFree())
+            {
+                TaintingProcess(other.gameObject);
+            }
         }
     }
 
