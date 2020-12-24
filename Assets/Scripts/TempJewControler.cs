@@ -35,7 +35,7 @@ public class TempJewControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _movementBounds.extents = new Vector3(_boundsExtent, _movementBounds.extents.y, _boundsExtent);
+
     }
 
     // Update is called once per frame
@@ -72,11 +72,19 @@ public class TempJewControler : MonoBehaviour
         }
     }
 
+    private void SetBounds(Vector3 center, Vector3 extents)
+    {
+        _movementBounds.center = center;
+        _movementBounds.extents = extents;
+
+        // TODO: CLAMP BOUNDS TO FLOOR BOUNDS
+    }
+
     // Sets values to default for object pool
     private void OnEnable()
     {
         // TODO: COMPLETE
-        _movementBounds.center = transform.position;
+        SetBounds(transform.position, new Vector3(_boundsExtent, _movementBounds.extents.y, _boundsExtent));
         _currentTargetPosition = RandomPointInBounds();
     }
 
@@ -110,12 +118,18 @@ public class TempJewControler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Equals("Synagogue"))
+        if (other.tag.Equals("Synagogue"))
         {
-            // Score
+            // TODO: SCORE
 
             // Back to object pool
             ObjectSpawner.Instance.KillJew(gameObject);
+        }
+
+        // Hit floor after missed throw
+        if (other.tag.Equals("Floor") && _currentState == State.Thrown)
+        {
+            EnterFreeState();
         }
     }
 

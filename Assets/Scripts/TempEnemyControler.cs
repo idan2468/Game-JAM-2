@@ -35,7 +35,6 @@ public class TempEnemyControler : MonoBehaviour
     // Move enemy in direction of _currentTargetPosition
     private void EnemyMove()
     {
-        // TODO: ANIMATION
         var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
         if (angleToTarget > 0)
         {
@@ -48,7 +47,7 @@ public class TempEnemyControler : MonoBehaviour
     // Switch to tainting mode, add jew, start fade
     private bool StartTainting(GameObject jew)
     {
-        // TODO: ANIMATION
+        _enemyAnimator.SetBool("isTainting", true);
 
         _isTainting = true;
         bool success = true;
@@ -76,7 +75,7 @@ public class TempEnemyControler : MonoBehaviour
 
     private void StopTainting(GameObject jew, bool success)
     {
-        // TODO: ANIMATION
+        _enemyAnimator.SetBool("isTainting", false);
 
         _isTainting = false;
 
