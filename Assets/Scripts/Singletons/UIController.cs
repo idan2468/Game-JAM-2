@@ -12,7 +12,7 @@ public class UIController : Singleton<UIController>
 {
     [SerializeField] private  float heartAnimationTime = 2f;
     [SerializeField] private Image[] playerLife;
-    [Header("UI Panels")] 
+    [Header("UI Canvas")] 
     [SerializeField] private GameObject gameSceneUI;
     [SerializeField] private GameObject endGameUI;
     private const int TOTAL_NUN_HEARTS = 3;

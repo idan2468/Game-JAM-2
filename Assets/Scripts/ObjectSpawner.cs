@@ -1,14 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
+using System.Diagnostics.CodeAnalysis;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class ObjectSpawner : MonoBehaviour
 {
+
+    /// <summary>
+    /// The instance.
+    /// </summary>
+    private static ObjectSpawner _instance;
+
+    #region Properties
+
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    /// <value>The instance.</value>
+    [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
+    [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeNullComparison")]
+    public static ObjectSpawner Instance
+    {
+        get
+        {
+            if ( _instance == null )
+            {
+                _instance = FindObjectOfType<ObjectSpawner> ();
+                if (_instance == null)
+                {
+                    Debug.LogWarning("There is no ObjectSpawner GameObject in the scene");
+                }
+            }
+            return _instance;
+        }
+    }
+
+    #endregion
+    
+    
     private Queue<GameObject> _enemiesPool;
     private Queue<GameObject> _jewsPool;
     [Header("Config params")]
@@ -34,6 +65,7 @@ public class ObjectSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _instance = this;
         _enemiesPool = new Queue<GameObject>();
         _jewsPool = new Queue<GameObject>();
         _jewsInGame = new List<GameObject>();
