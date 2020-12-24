@@ -5,14 +5,12 @@ using DG.Tweening;
 
 public class TempEnemyControler : MonoBehaviour
 {
-    public ObjectSpawner myObjectSpawner;
-
     private Vector3 _currentTargetPosition;
-    [SerializeField] private float _speed = 2f;
+    [SerializeField] private float _movementSpeed = 2f;
+    [SerializeField] private float _rotationSpeed = 2f;
 
     private bool _isTainting = false; // Enemy is in tainting state
     [SerializeField] private float _taintDuration = 5f; // Time it takes to taint a Jew
-    //private GameObject _jew;
 
     private Animator _enemyAnimator;
 
@@ -28,7 +26,7 @@ public class TempEnemyControler : MonoBehaviour
         // Move towards closest Jew
         if(!_isTainting)
         {
-            var closestJew = myObjectSpawner.GetClosestJew(transform.position);
+            var closestJew = ObjectSpawner.Instance.GetClosestJew(transform.position);
             _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
             EnemyMove();
         }
@@ -38,9 +36,13 @@ public class TempEnemyControler : MonoBehaviour
     private void EnemyMove()
     {
         // TODO: ANIMATION
+        var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
+        if (angleToTarget > 0)
+        {
+            transform.DORotate(_currentTargetPosition, angleToTarget / _rotationSpeed);
+        }
 
-        // TODO: ADD ROTATION
-        transform.position += (_currentTargetPosition - transform.position) * Time.deltaTime * _speed;
+        transform.DOMove(_currentTargetPosition, Vector3.Distance(_currentTargetPosition, transform.position) / _movementSpeed);
     }
 
     // Switch to tainting mode, add jew, start fade
@@ -80,7 +82,7 @@ public class TempEnemyControler : MonoBehaviour
 
         if (success) // Destroy Jew if tainting uninterrupted
         {
-            myObjectSpawner.KillJew(jew);
+            ObjectSpawner.Instance.KillJew(jew);
         }
     }
 
