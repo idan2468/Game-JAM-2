@@ -13,7 +13,6 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         StartScene,
         GameScene,
-        EndScene,
     };
     
     public void MoveToScene(Scene scene)

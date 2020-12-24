@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 2f;
     [SerializeField] private float rotationSpeed = 2f;
-    [SerializeField] private float rayCastDistFactor = 2f;
+    // [SerializeField] private float rayCastDistFactor = 2f;
     [SerializeField] private Transform cam;
     [SerializeField] private GameObject throwingObj;
     private string HorizontalAxis = "Horizontal";
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private Animator _myAnimator;
     [Header("Animation")]
     [SerializeField] private bool isUsingAnimator = false;
-    private Vector3? savedPosition = null;
+    // private Vector3? savedPosition = null;
 
     // Start is called before the first frame update
     void Start()
