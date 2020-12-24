@@ -11,8 +11,11 @@ using UnityEngine.UI;
 public class UIController : Singleton<UIController>
 {
     [SerializeField] private  float heartAnimationTime = 2f;
-    private const int TOTAL_NUN_HEARTS = 3;
     [SerializeField] private Image[] playerLife;
+    [Header("UI Panels")] 
+    [SerializeField] private GameObject gameSceneUI;
+    [SerializeField] private GameObject endGameUI;
+    private const int TOTAL_NUN_HEARTS = 3;
     private int _currLife = TOTAL_NUN_HEARTS;
     private int _currScore;
     private Tweener _tween;
@@ -23,9 +26,6 @@ public class UIController : Singleton<UIController>
         playerLife = new Image[]{};
         LoadGameSceneUIObjects();
         SceneManager.activeSceneChanged += ((arg0, scene) =>  LoadGameSceneUIObjects());
-        LoseLife();
-        LoseLife();
-        AddScore(2);
     }
 
     private void LoadGameSceneUIObjects()
@@ -67,5 +67,11 @@ public class UIController : Singleton<UIController>
         {
             _score.text = "Score: " + _currScore;
         }
+    }
+
+    public void SwitchToEndGameUI()
+    {
+        endGameUI.SetActive(true);
+        gameSceneUI.SetActive(false);
     }
 }
