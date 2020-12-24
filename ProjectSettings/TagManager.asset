@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Jew
   - Heart
+  - Score
   layers:
   - Default
   - TransparentFX
