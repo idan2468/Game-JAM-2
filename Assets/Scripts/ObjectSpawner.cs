@@ -9,20 +9,18 @@ using Random = UnityEngine.Random;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    [SerializeField] private Bounds spawnBounds;
-
     private Queue<GameObject> _enemiesPool;
     private Queue<GameObject> _jewsPool;
-    [SerializeField] private List<GameObject> _jewsInGame;
-    [SerializeField] private List<GameObject> _enemiesInGame;
-    private Queue<GameObject> myQueue;
+    [Header("Config params")]
+    [SerializeField] private Bounds spawnBounds;
     [SerializeField] private int maxJews = 20;
     [SerializeField] private int maxEnemies = 20;
     [SerializeField] private float minDistanceBetweenObjects;
-
-    [Header("Containers")] [SerializeField]
-    private Transform jewsPoolContainer;
-
+    [Header("Objects in game")]
+    [SerializeField] private List<GameObject> _jewsInGame;
+    [SerializeField] private List<GameObject> _enemiesInGame;
+    [Header("Containers")]
+    [SerializeField] private Transform jewsPoolContainer;
     [SerializeField] private Transform enemiesPoolContainer;
     [SerializeField] private Transform jewsInGameContainer;
     [SerializeField] private Transform enemiesInGameContainer;
@@ -81,15 +79,24 @@ public class ObjectSpawner : MonoBehaviour
             seq.AppendInterval(1);
         }
 
-        seq.Play().OnComplete(() =>KillJew(_jewsInGame[0]));
+        seq.Play().OnComplete(() => KillJew(_jewsInGame[0]));
     }
 
-    public Vector3 RandomPointInBounds()
+    private Vector3 RandomPointInBounds()
     {
         return new Vector3(
             Random.Range(spawnBounds.min.x, spawnBounds.max.x),
             Random.Range(spawnBounds.min.y, spawnBounds.max.y),
             Random.Range(spawnBounds.min.z, spawnBounds.max.z)
+        );
+    }
+    
+    public static Vector3 RandomPointInBounds(Bounds bounds)
+    {
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z)
         );
     }
 
