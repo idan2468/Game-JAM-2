@@ -1,25 +1,71 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIController : Singleton<UIController>
 {
-    public Slider BGMSlider, SFXSlider;
+    [SerializeField] private  float heartAnimationTime = 2f;
+    private const int TOTAL_NUN_HEARTS = 3;
+    [SerializeField] private Image[] playerLife;
+    private int _currLife = TOTAL_NUN_HEARTS;
+    private int _currScore;
+    private Tweener _tween;
+    private TextMeshProUGUI _score;
 
-    protected override void Awake()
+    private void Start()
     {
-        BGMSlider.value = MusicController.Instance.GetBGMVolume();
-        SFXSlider.value = MusicController.Instance.GetSFXVolume();
-        base.Awake();
+        playerLife = new Image[]{};
+        LoadGameSceneUIObjects();
+        SceneManager.activeSceneChanged += ((arg0, scene) =>  LoadGameSceneUIObjects());
+        LoseLife();
+        LoseLife();
+        AddScore(2);
     }
 
-    private void OnEnable()
+    private void LoadGameSceneUIObjects()
     {
-        BGMSlider.value = MusicController.Instance.GetBGMVolume();
-        SFXSlider.value = MusicController.Instance.GetSFXVolume();
+        if (SceneLoader.Instance.GetActiveScene() == SceneLoader.Scene.GameScene && playerLife.Length == 0)
+        {
+            playerLife = GameObject.FindGameObjectsWithTag("Heart").Select(go => go.GetComponent<Image>())
+                .ToArray();
+        }
+
+        if (_score == null)
+        {
+            _score = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
+        }
     }
-    
+
+    public void LoseLife()
+    {
+        StartCoroutine(LoseLifeCoroutine());
+    }
+
+    private IEnumerator LoseLifeCoroutine()
+    {
+        if (_tween != null)
+        {
+            yield return _tween.WaitForCompletion();    
+        }
+        _currLife--;
+        if (_currLife > 0)
+        {
+            _tween = playerLife[_currLife].DOFillAmount(0, heartAnimationTime).SetEase(Ease.OutQuad);
+        }
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+        _currScore += scoreToAdd;
+        if (_score != null)
+        {
+            _score.text = "Score: " + _currScore;
+        }
+    }
 }

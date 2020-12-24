@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Jew
+  - Heart
   layers:
   - Default
   - TransparentFX

@@ -30,9 +30,6 @@ public class SceneLoader : Singleton<SceneLoader>
             case "GameScene":
                 MusicController.Instance.PlayGameBGM();
                 break;
-            case "EndScene":
-                MusicController.Instance.PlayGameBGM();
-                break;
         }
         SceneManager.LoadScene(sceneName);
     }
@@ -41,5 +38,11 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         Application.Quit();
     }
-    
+
+
+    public Scene GetActiveScene()
+    {
+        var sceneName = SceneManager.GetActiveScene().name;
+        return Enum.GetName(typeof(Scene), Scene.GameScene) == sceneName ? Scene.GameScene : Scene.StartScene;
+    }
 }
