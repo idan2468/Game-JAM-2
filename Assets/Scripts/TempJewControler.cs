@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using Singletons;
 
 public class TempJewControler : MonoBehaviour
 {
@@ -16,7 +16,6 @@ public class TempJewControler : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 2f;
 
     private Animator _jewAnimator;
-
     public enum State
     {
         Free,
@@ -35,7 +34,7 @@ public class TempJewControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -46,16 +45,7 @@ public class TempJewControler : MonoBehaviour
             PlayerMove();
         }
     }
-
-    private Vector3 RandomPointInBounds()
-    {
-        return new Vector3(
-            Random.Range(_movementBounds.min.x, _movementBounds.max.x),
-            Random.Range(_movementBounds.min.y, _movementBounds.max.y),
-            Random.Range(_movementBounds.min.z, _movementBounds.max.z)
-        );
-    }
-
+    
     private void PlayerMove()
     {
         var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
@@ -63,12 +53,11 @@ public class TempJewControler : MonoBehaviour
         {
             transform.DORotate(_currentTargetPosition, angleToTarget / _rotationSpeed);
         }
-
+        
         transform.DOMove(_currentTargetPosition, Vector3.Distance(_currentTargetPosition, transform.position) / _movementSpeed);
-
         if (Vector3.Distance(transform.position, _currentTargetPosition) < 0.05f)
         {
-            _currentTargetPosition = RandomPointInBounds();
+            _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
         }
     }
 
@@ -76,7 +65,6 @@ public class TempJewControler : MonoBehaviour
     {
         _movementBounds.center = center;
         _movementBounds.extents = extents;
-
         // TODO: CLAMP BOUNDS TO FLOOR BOUNDS
     }
 
@@ -85,7 +73,7 @@ public class TempJewControler : MonoBehaviour
     {
         // TODO: COMPLETE
         SetBounds(transform.position, new Vector3(_boundsExtent, _movementBounds.extents.y, _boundsExtent));
-        _currentTargetPosition = RandomPointInBounds();
+        _currentTargetPosition =GameManager.Instance.RandomPointInBounds(_movementBounds);
     }
 
     public void EnterFreeState()
@@ -123,7 +111,7 @@ public class TempJewControler : MonoBehaviour
             // TODO: SCORE
 
             // Back to object pool
-            ObjectSpawner.Instance.KillJew(gameObject);
+            GameManager.Instance.KillJew(gameObject);
         }
 
         // Hit floor after missed throw

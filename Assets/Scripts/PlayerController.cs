@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using PathCreation;
 using UnityEngine;
@@ -18,7 +19,6 @@ public class PlayerController : MonoBehaviour
     private Animator _myAnimator;
     [Header("Animation")]
     [SerializeField] private bool isUsingAnimator = false;
-    // private Vector3? savedPosition = null;
 
     // Start is called before the first frame update
     void Start()
@@ -80,24 +80,4 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, step);
         return forwardAccordingToCamera;
     }
-
-    // private void Throw()
-    // {
-    //     var height = 5f;
-    //     var target = throwingObj.transform.position;
-    //     throwingObj.transform.localPosition = orgLocalPosThrowObj;
-    //     var start = throwingObj.transform.position;
-    //     // Debug.DrawLine(start, target, Color.red, 2f);
-    //     var midPoint = (target + start) / 2;
-    //     midPoint.y += height;
-    //     // Debug.DrawLine(start, midPoint, Color.cyan, 2f);
-    //     BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, target});
-    //     var ballisticGameObject = Instantiate(new GameObject());
-    //     var pc = ballisticGameObject.AddComponent<PathCreator>();
-    //     var pathFollow = throwingObj.AddComponent<PathFollow>();
-    //     pc.bezierPath = path;
-    //     pc.bezierPath.AutoControlLength = 0.5f;
-    //     pathFollow.pathCreator = pc;
-    //     // path.AutoControlLength = 0.5f;
-    // }
 }

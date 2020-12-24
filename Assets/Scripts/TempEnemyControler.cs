@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Singletons;
 
 public class TempEnemyControler : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class TempEnemyControler : MonoBehaviour
         // Move towards closest Jew
         if(!_isTainting)
         {
-            var closestJew = ObjectSpawner.Instance.GetClosestJew(transform.position);
+            var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
             _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
             EnemyMove();
         }
@@ -40,7 +41,6 @@ public class TempEnemyControler : MonoBehaviour
         {
             transform.DORotate(_currentTargetPosition, angleToTarget / _rotationSpeed);
         }
-
         transform.DOMove(_currentTargetPosition, Vector3.Distance(_currentTargetPosition, transform.position) / _movementSpeed);
     }
 
@@ -81,7 +81,7 @@ public class TempEnemyControler : MonoBehaviour
 
         if (success) // Destroy Jew if tainting uninterrupted
         {
-            ObjectSpawner.Instance.KillJew(jew);
+            GameManager.Instance.KillJew(jew);
         }
     }
 
