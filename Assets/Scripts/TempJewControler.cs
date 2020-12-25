@@ -42,7 +42,7 @@ public class TempJewControler : MonoBehaviour
     {
         if (_currentState == State.Free)
         {
-            PlayerMove();
+            NewMoveJew();
         }
     }
     
@@ -55,6 +55,20 @@ public class TempJewControler : MonoBehaviour
         }
         
         transform.DOMove(_currentTargetPosition, Vector3.Distance(_currentTargetPosition, transform.position) / _movementSpeed);
+        if (Vector3.Distance(transform.position, _currentTargetPosition) < 0.05f)
+        {
+            _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
+        }
+    }
+    private void NewMoveJew()
+    {
+        var stepMove =  _movementSpeed * Time.deltaTime; // calculate distance to move
+        var stepRotate = _rotationSpeed * Time.deltaTime;
+        //find the vector pointing from our position to the target
+        var dirRotation = (_currentTargetPosition - transform.position).normalized;
+        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, stepMove);
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,dirRotation,
+            stepRotate,0f));
         if (Vector3.Distance(transform.position, _currentTargetPosition) < 0.05f)
         {
             _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
