@@ -48,6 +48,8 @@ public class TempJewControler : MonoBehaviour
     
     private void PlayerMove()
     {
+        // TODO: REMOVE DOTWEEN
+
         var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
         if (angleToTarget > 0)
         {
@@ -111,7 +113,12 @@ public class TempJewControler : MonoBehaviour
             // TODO: SCORE
 
             // Back to object pool
+<<<<<<< Updated upstream
             GameManager.Instance.KillJew(gameObject);
+=======
+            ObjectSpawner.Instance.KillJew(gameObject);
+            // TODO: CHECK BACK WHEN MANAGER READY
+>>>>>>> Stashed changes
         }
 
         // Hit floor after missed throw

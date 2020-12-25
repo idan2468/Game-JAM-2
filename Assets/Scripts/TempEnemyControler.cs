@@ -27,7 +27,13 @@ public class TempEnemyControler : MonoBehaviour
         // Move towards closest Jew
         if(!_isTainting)
         {
+<<<<<<< Updated upstream
             var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
+=======
+            // TODO: SET GET CLOSEST JEW CALL TO HAPPEN ONCE PER SECOND IN COROUTINE
+
+            var closestJew = ObjectSpawner.Instance.GetClosestJew(transform.position);
+>>>>>>> Stashed changes
             _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
             EnemyMove();
         }
@@ -36,6 +42,7 @@ public class TempEnemyControler : MonoBehaviour
     // Move enemy in direction of _currentTargetPosition
     private void EnemyMove()
     {
+        // TODO: CHANGE DOTWEEN TO REGULAR 
         var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
         if (angleToTarget > 0)
         {
@@ -81,7 +88,13 @@ public class TempEnemyControler : MonoBehaviour
 
         if (success) // Destroy Jew if tainting uninterrupted
         {
+<<<<<<< Updated upstream
             GameManager.Instance.KillJew(jew);
+=======
+            // TODO: CHECK BACK WHEN MANAGER READY
+            
+            ObjectSpawner.Instance.KillJew(jew);
+>>>>>>> Stashed changes
         }
     }
 
