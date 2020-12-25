@@ -48,15 +48,15 @@ public class TempJewControler : MonoBehaviour
     
     private void PlayerMove()
     {
-        // TODO: REMOVE DOTWEEN
-
         var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
         if (angleToTarget > 0)
         {
-            transform.DORotate(_currentTargetPosition, angleToTarget / _rotationSpeed);
+            var normDirection = (_currentTargetPosition - transform.position).normalized;
+            var lookRotation = Quaternion.LookRotation(normDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
         }
-        
-        transform.DOMove(_currentTargetPosition, Vector3.Distance(_currentTargetPosition, transform.position) / _movementSpeed);
+
+        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.fixedDeltaTime);
         if (Vector3.Distance(transform.position, _currentTargetPosition) < 0.05f)
         {
             _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
@@ -75,7 +75,7 @@ public class TempJewControler : MonoBehaviour
     {
         // TODO: COMPLETE
         SetBounds(transform.position, new Vector3(_boundsExtent, _movementBounds.extents.y, _boundsExtent));
-        _currentTargetPosition =GameManager.Instance.RandomPointInBounds(_movementBounds);
+        _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
     }
 
     public void EnterFreeState()
@@ -113,12 +113,7 @@ public class TempJewControler : MonoBehaviour
             // TODO: SCORE
 
             // Back to object pool
-<<<<<<< Updated upstream
             GameManager.Instance.KillJew(gameObject);
-=======
-            ObjectSpawner.Instance.KillJew(gameObject);
-            // TODO: CHECK BACK WHEN MANAGER READY
->>>>>>> Stashed changes
         }
 
         // Hit floor after missed throw

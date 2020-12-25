@@ -15,6 +15,8 @@ public class TempEnemyControler : MonoBehaviour
 
     private Animator _enemyAnimator;
 
+    private float _findJewInterval = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,28 +29,33 @@ public class TempEnemyControler : MonoBehaviour
         // Move towards closest Jew
         if(!_isTainting)
         {
-<<<<<<< Updated upstream
-            var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
-=======
-            // TODO: SET GET CLOSEST JEW CALL TO HAPPEN ONCE PER SECOND IN COROUTINE
-
-            var closestJew = ObjectSpawner.Instance.GetClosestJew(transform.position);
->>>>>>> Stashed changes
-            _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
+            StartCoroutine("FindTarget");
             EnemyMove();
+        }
+    }
+
+    private IEnumerator FindTarget()
+    {
+        while (true)
+        {
+            var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
+            _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
+
+            yield return new WaitForSeconds(_findJewInterval);
         }
     }
 
     // Move enemy in direction of _currentTargetPosition
     private void EnemyMove()
     {
-        // TODO: CHANGE DOTWEEN TO REGULAR 
         var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
         if (angleToTarget > 0)
         {
-            transform.DORotate(_currentTargetPosition, angleToTarget / _rotationSpeed);
+            var normDirection = (_currentTargetPosition - transform.position).normalized;
+            var lookRotation = Quaternion.LookRotation(normDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
         }
-        transform.DOMove(_currentTargetPosition, Vector3.Distance(_currentTargetPosition, transform.position) / _movementSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.fixedDeltaTime);
     }
 
     // Switch to tainting mode, add jew, start fade
@@ -68,7 +75,6 @@ public class TempEnemyControler : MonoBehaviour
             // Tainting was interrupted, set alpha back to 1
             if (jewScript.CurrentState != TempJewControler.State.CaughtByEnemy)
             {
-                // TODO: TRY TO REFORMAT
                 var currentColor = jewMaterial.color;
                 currentColor.a = 1;
                 jewMaterial.SetColor("Color", currentColor);
@@ -88,13 +94,7 @@ public class TempEnemyControler : MonoBehaviour
 
         if (success) // Destroy Jew if tainting uninterrupted
         {
-<<<<<<< Updated upstream
             GameManager.Instance.KillJew(jew);
-=======
-            // TODO: CHECK BACK WHEN MANAGER READY
-            
-            ObjectSpawner.Instance.KillJew(jew);
->>>>>>> Stashed changes
         }
     }
 
