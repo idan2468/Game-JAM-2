@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Singletons;
+using UnityEngine.UI;
 
 public class TempEnemyControler : MonoBehaviour
 {
-    [SerializeField]private Vector3 _currentTargetPosition;
+    [SerializeField] private Vector3 _currentTargetPosition;
     [SerializeField] private float _movementSpeed = 2f;
     [SerializeField] private float _rotationSpeed = 2f;
 
@@ -16,6 +17,7 @@ public class TempEnemyControler : MonoBehaviour
 
     private Animator _enemyAnimator;
     [SerializeField] private bool _isUsingAnimator = false;
+    [SerializeField] private Image tainBar;
 
     private float _findJewInterval = .25f;
 
@@ -32,7 +34,7 @@ public class TempEnemyControler : MonoBehaviour
     void Update()
     {
         // Move towards closest Jew
-        if(!_isTainting)
+        if (!_isTainting)
         {
             EnemyMove();
         }
@@ -42,11 +44,12 @@ public class TempEnemyControler : MonoBehaviour
     {
         while (true)
         {
-            if(!_isTainting)
+            if (!_isTainting)
             {
                 var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
                 _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
             }
+
             yield return new WaitForSeconds(_findJewInterval);
         }
     }
@@ -61,7 +64,22 @@ public class TempEnemyControler : MonoBehaviour
             var lookRotation = Quaternion.LookRotation(normDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
         }
-        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.deltaTime);
+
+        transform.position =
+            Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.deltaTime);
+    }
+
+    private Sequence GetSequenceForTaintBar()
+    {
+        var seq = DOTween.Sequence();
+        seq.AppendCallback(() =>
+        {
+            tainBar.gameObject.SetActive(true);
+            tainBar.fillAmount = 1;
+        });
+        seq.Append(tainBar.DOFillAmount(0, _taintDuration));
+        seq.AppendCallback(() => tainBar.gameObject.SetActive(false));
+        return seq;
     }
 
     // Freeze jew and enemy
@@ -70,8 +88,10 @@ public class TempEnemyControler : MonoBehaviour
         var jewScript = jew.GetComponent<TempJewControler>();
         jewScript.EnterTaintState(gameObject);
         var success = false;
-
-        yield return new WaitForSeconds(_taintDuration);
+        var seq = GetSequenceForTaintBar();
+        seq.Play();
+        yield return seq.WaitForCompletion();
+        // yield return new WaitForSeconds(_taintDuration);
         if (jewScript != null)
         {
             if (jewScript.CurrentState == TempJewControler.State.CaughtByEnemy)

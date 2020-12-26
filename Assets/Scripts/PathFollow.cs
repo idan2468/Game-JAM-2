@@ -29,6 +29,7 @@ public class PathFollow : MonoBehaviour
                 Debug.Log("Disconnected from path... \n Removing path");
                 pathCreator = null;
                 gameObject.GetComponent<TempJewControler>().EnterFreeState();
+                distanceTravelled = 0;
                 Destroy(pathObj);
             }
         }
