@@ -17,12 +17,12 @@ public class TempEnemyControler : MonoBehaviour
     private Animator _enemyAnimator;
     [SerializeField] private bool _isUsingAnimator = false;
 
-    private float _findJewInterval = 1f;
+    private float _findJewInterval = .25f;
 
     // Start is called before the first frame update
     void Start()
     {
-        _taintDuration = 1f;
+        _taintDuration = 5f;
         _enemyAnimator = GetComponent<Animator>();
         //case 1
         StartCoroutine(FindTarget());
@@ -68,7 +68,7 @@ public class TempEnemyControler : MonoBehaviour
     private IEnumerator TaintJew(GameObject jew)
     {
         var jewScript = jew.GetComponent<TempJewControler>();
-        jewScript.EnterTaintState();
+        jewScript.EnterTaintState(gameObject);
         var success = false;
 
         yield return new WaitForSeconds(_taintDuration);
