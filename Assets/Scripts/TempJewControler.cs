@@ -24,7 +24,8 @@ public class TempJewControler : MonoBehaviour
         CaughtByGolem = 2,
         Thrown = 3
     };
-    [SerializeField]private State _currentState = State.Free;
+    [SerializeField] private State _currentState = State.Free;
+    [SerializeField] private GameObject _chasingEnemy; // Currently chased by this enemy
 
     public State CurrentState
     {
@@ -35,8 +36,7 @@ public class TempJewControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _jewAnimator = GetComponent<Animator>();
-
+        InitializeJew();
     }
 
     // Update is called once per frame
@@ -77,22 +77,40 @@ public class TempJewControler : MonoBehaviour
     private void OnEnable()
     {
         // TODO: COMPLETE
+        InitializeJew();
+    }
+
+    private void InitializeJew()
+    {
+        _jewAnimator = GetComponent<Animator>();
         SetBounds(transform.position, new Vector3(_boundsExtent, _movementBounds.extents.y, _boundsExtent));
         _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
         EnterFreeState();
+    }
+
+    public void SetChase(GameObject enemy)
+    {
+        _chasingEnemy = enemy;
+    }
+
+    public GameObject GetChase()
+    {
+        return _chasingEnemy;
     }
 
     public void EnterFreeState()
     {
         // TODO: COMPLETE 
         _currentState = State.Free;
-        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Free);
+        SetChase(null);
+        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int)State.Free);
     }
 
     public void EnterTaintState(GameObject enemy)
     {
         // TODO: COMPLETE 
         _currentState = State.CaughtByEnemy;
+        SetChase(null);
 
         // Turn Jew to face enemy
         var normDirection = (enemy.transform.position - transform.position).normalized;
@@ -113,6 +131,7 @@ public class TempJewControler : MonoBehaviour
     {
         // TODO: COMPLETE 
         _currentState = State.Thrown;
+        SetChase(null);
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Thrown);
     }
 
