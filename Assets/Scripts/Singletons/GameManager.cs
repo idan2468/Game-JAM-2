@@ -44,18 +44,17 @@ namespace Singletons
             //
             //     seq.AppendInterval(1);
             // }
-            for (int _ = 0; _ < 10; ++_)
+            for (int _ = 0; _ < 3; ++_)
             {
                 seq.AppendCallback(SpawnJew);
             }
-            seq.AppendCallback(SpawnEnemy);
-            seq.AppendCallback(SpawnEnemy);
             seq.AppendCallback(SpawnEnemy);
             seq.Play();
         }
 
         public Vector3 RandomPointInBounds(Bounds bounds)
         {
+            // TODO: PLAY WITH OFFSET
             var x = Random.Range(bounds.min.x, bounds.max.x);
             var y = Random.Range(bounds.min.y, bounds.max.y);
             var z = Random.Range(bounds.min.z, bounds.max.z);
@@ -112,10 +111,10 @@ namespace Singletons
             _jewsInGame.Remove(jewController);
             ObjectSpawner.Instance.RemoveObject(jewController);
 
-            //if (_playerLives <= 0)
-            //{
-            //    UIController.Instance.SwitchToEndGameUI();
-            //}
+            if (_playerLives <= 0)
+            {
+                UIController.Instance.SwitchToEndGameUI();
+            }
         }
 
         public void KillEnemy(GameObject enemy)

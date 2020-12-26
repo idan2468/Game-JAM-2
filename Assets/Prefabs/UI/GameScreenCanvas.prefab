@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2920090767826937171}
   - component: {fileID: 2920090767826937170}
   m_Layer: 5
-  m_Name: GameScreenUI
+  m_Name: GameScreenCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,10 +132,10 @@ RectTransform:
   m_Father: {fileID: 2920090767826937169}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -758.21, y: 489.55}
-  m_SizeDelta: {x: 403.576, y: 100.894}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 201.79004, y: -50.44995}
+  m_SizeDelta: {x: 403.576, y: 100.89398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2920090767917641380
 CanvasRenderer:
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score: 20'
+  m_text: 'Score: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
