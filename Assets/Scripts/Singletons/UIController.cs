@@ -61,7 +61,8 @@ public class UIController : Singleton<UIController>
 
     private IEnumerator LoseLifeCoroutine()
     {
-        if (_tween != null && _tween.IsPlaying())
+        
+        if (_tween.IsActive())
         {
             yield return _tween.WaitForCompletion();    
         }
