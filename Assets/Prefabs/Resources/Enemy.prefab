@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentTargetPosition: {x: 0, y: 0, z: 0}
-  _movementSpeed: 20
+  _movementSpeed: 4
   _rotationSpeed: 2
   _isTainting: 0
   _taintDuration: 0

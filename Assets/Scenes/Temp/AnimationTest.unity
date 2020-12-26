@@ -1224,10 +1224,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2882776668761551116, guid: 12ba81cbc2a58504e9628b8f23c014c4, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 23ae8fa46d8cfdc47bed33b1f1064b1a, type: 2}
     - target: {fileID: 3555932675808359306, guid: 12ba81cbc2a58504e9628b8f23c014c4, type: 3}
       propertyPath: m_Name
       value: Golem_Temp
@@ -1280,9 +1276,5 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194228}
-    - target: {fileID: 4438398846781692621, guid: 12ba81cbc2a58504e9628b8f23c014c4, type: 3}
-      propertyPath: speed
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12ba81cbc2a58504e9628b8f23c014c4, type: 3}

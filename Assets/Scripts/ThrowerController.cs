@@ -1,41 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using DG.Tweening;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
-using UnityEditor;
-using UnityEngine.Serialization;
 
 public class ThrowerController : MonoBehaviour
 {
     [SerializeField] private float height = 5f;
     [SerializeField] private float throwForce = 2f;
-    [SerializeField]private Transform startLocalTransformThrowingObj;
+    [SerializeField] private Transform startLocalTransformThrowingObj;
     [SerializeField] private GameObject _target;
     private Vector3 _orgLocalPosTargetObj;
-    private List<GameObject> _throwingObjects;
     private GameObject _currThrowingObj;
+
+    private bool _caughtJew;
+
     // private PathFollow _pathFollow;
-    [SerializeField]private Transform jewsInGame;
+    [SerializeField] private Transform jewsInGame;
 
 
     // Forward/left/right vectors at time of fire
-    private Vector3 _targetOriginalForward; 
-    private Vector3 _targetOriginalLeft; 
+    private Vector3 _targetOriginalForward;
+    private Vector3 _targetOriginalLeft;
     private Vector3 _targetOriginalRight;
     private bool _isAiming; // currently aiming _target
     [SerializeField] private float _boundaryDegree = 45f;
+
     [SerializeField] private Animator _parentAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
         _parentAnimator = GetComponentInParent<Animator>();
         _isAiming = false;
+        _caughtJew = false;
         _orgLocalPosTargetObj = _target.transform.localPosition;
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -43,11 +42,13 @@ public class ThrowerController : MonoBehaviour
         {
             EnterAimMode();
         }
+
         // Only move target if aiming
         if (_isAiming)
         {
             HandleAimModePhysics();
         }
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             Debug.Log("Fire");
@@ -55,11 +56,13 @@ public class ThrowerController : MonoBehaviour
             {
                 return;
             }
-            var normDirection = (_target.transform.position- transform.position).normalized;
+
+            var normDirection = (_target.transform.position - transform.position).normalized;
             transform.parent.rotation = Quaternion.LookRotation(normDirection);
             _parentAnimator.SetTrigger("Throw");
         }
     }
+
     /**
      * Exit Aim mode and returns the aim word position to throw the object.
      */
@@ -124,6 +127,7 @@ public class ThrowerController : MonoBehaviour
             Debug.LogWarning("No Object to throw");
             return;
         }
+
         _target.transform.parent = null;
         _isAiming = true;
         _targetOriginalForward = transform.forward;
@@ -156,11 +160,14 @@ public class ThrowerController : MonoBehaviour
         pathFollow.pathObj = ballisticPathGO;
         _currThrowingObj.GetComponent<TempJewControler>().EnterThrownState();
         _currThrowingObj = null;
+        _caughtJew = false;
         _parentAnimator.speed = 1;
     }
 
     public void AddObjToThrow(GameObject obj)
     {
+        if (_caughtJew) return;
+        _caughtJew = true;
         jewsInGame = obj.transform.parent;
         obj.transform.SetParent(startLocalTransformThrowingObj);
         obj.transform.localPosition = startLocalTransformThrowingObj.localPosition;
