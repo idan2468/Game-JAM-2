@@ -16,6 +16,7 @@ public class TempJewControler : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 2f;
 
     private Animator _jewAnimator;
+    [SerializeField] private bool _isUsingAnimator = false;
     public enum State
     {
         Free,
@@ -44,6 +45,7 @@ public class TempJewControler : MonoBehaviour
         {
             PlayerMove();
         }
+        //Debug.Log(_currentState);
     }
     
     private void PlayerMove()
@@ -82,7 +84,7 @@ public class TempJewControler : MonoBehaviour
     {
         // TODO: COMPLETE 
         _currentState = State.Free;
-        _jewAnimator.SetInteger("State", (int) State.Free);
+        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Free);
     }
 
     public void EnterTaintState()
@@ -90,21 +92,21 @@ public class TempJewControler : MonoBehaviour
         // case 3
         // TODO: COMPLETE 
         _currentState = State.CaughtByEnemy;
-        _jewAnimator.SetInteger("State", (int) State.CaughtByEnemy);
+        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.CaughtByEnemy);
     }
 
     public void EnterGolemState()
     {
         // TODO: COMPLETE 
         _currentState = State.CaughtByGolem;
-        _jewAnimator.SetInteger("State", (int) State.CaughtByGolem);
+        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.CaughtByGolem);
     }
 
     public void EnterThrownState()
     {
         // TODO: COMPLETE 
         _currentState = State.Thrown;
-        _jewAnimator.SetInteger("State", (int) State.Thrown);
+        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Thrown);
     }
 
     private void OnTriggerEnter(Collider other)

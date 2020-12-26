@@ -141,10 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentTargetPosition: {x: 0, y: 0, z: 0}
-  _movementSpeed: 7
+  _movementSpeed: 20
   _rotationSpeed: 2
   _isTainting: 0
-  _taintDuration: 5
+  _taintDuration: 0
+  _isUsingAnimator: 0
 --- !u!54 &-4762041143608696837
 Rigidbody:
   m_ObjectHideFlags: 0

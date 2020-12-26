@@ -28,13 +28,25 @@ public class UIController : Singleton<UIController>
         SceneManager.activeSceneChanged += ((arg0, scene) =>  LoadGameSceneUIObjects());
     }
 
+    public int GetHeartAmount()
+    {
+        return _currLife;
+    }
+
+    public int GetScore()
+    {
+        return _currScore;
+    }
+
     private void LoadGameSceneUIObjects()
     {
-        if (SceneLoader.Instance.GetActiveScene() == SceneLoader.Scene.GameScene && playerLife.Length == 0)
-        {
-            playerLife = GameObject.FindGameObjectsWithTag("Heart").Select(go => go.GetComponent<Image>())
+        //if (SceneLoader.Instance.GetActiveScene() == SceneLoader.Scene.GameScene && playerLife.Length == 0)
+        //{
+        //    playerLife = GameObject.FindGameObjectsWithTag("Heart").Select(go => go.GetComponent<Image>())
+        //        .ToArray();
+        //}
+        playerLife = GameObject.FindGameObjectsWithTag("Heart").Select(go => go.GetComponent<Image>())
                 .ToArray();
-        }
 
         if (_score == null)
         {
@@ -49,12 +61,12 @@ public class UIController : Singleton<UIController>
 
     private IEnumerator LoseLifeCoroutine()
     {
-        if (_tween != null)
+        if (_tween != null && _tween.IsPlaying())
         {
             yield return _tween.WaitForCompletion();    
         }
         _currLife--;
-        if (_currLife > 0)
+        if (_currLife >= 0)
         {
             _tween = playerLife[_currLife].DOFillAmount(0, heartAnimationTime).SetEase(Ease.OutQuad);
         }

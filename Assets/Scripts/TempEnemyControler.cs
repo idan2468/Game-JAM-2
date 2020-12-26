@@ -11,15 +11,18 @@ public class TempEnemyControler : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 2f;
 
     [SerializeField] private bool _isTainting = false; // Enemy is in tainting state
-    [SerializeField] private float _taintDuration = 5f; // Time it takes to taint a Jew
+    [SerializeField] private float _taintDuration; // Time it takes to taint a Jew
+    private Tweener _fadeTweener;
 
     private Animator _enemyAnimator;
+    [SerializeField] private bool _isUsingAnimator = false;
 
     private float _findJewInterval = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
+        _taintDuration = 1f;
         _enemyAnimator = GetComponent<Animator>();
         //case 1
         StartCoroutine(FindTarget());
@@ -61,38 +64,38 @@ public class TempEnemyControler : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.deltaTime);
     }
 
-    // Switch to tainting mode, add jew, start fade
-    private bool StartTainting(GameObject jew)
+    // Freeze jew and enemy
+    private IEnumerator TaintJew(GameObject jew)
     {
-        Debug.Log("Start Tainting");
-        _enemyAnimator.SetBool("isTainting", true);
-
-        _isTainting = true;
-        bool success = true;
         var jewScript = jew.GetComponent<TempJewControler>();
         jewScript.EnterTaintState();
+        var success = false;
 
-        var jewMaterial = jew.GetComponent<Material>();
-        var fadeTweener = jewMaterial.DOFade(0, _taintDuration);
-        fadeTweener.OnUpdate(() =>
+        yield return new WaitForSeconds(_taintDuration);
+        if (jewScript != null)
         {
-            // Tainting was interrupted, set alpha back to 1
-            if (jewScript.CurrentState != TempJewControler.State.CaughtByEnemy)
+            if (jewScript.CurrentState == TempJewControler.State.CaughtByEnemy)
             {
-                var currentColor = jewMaterial.color;
-                currentColor.a = 1;
-                jewMaterial.SetColor("Color", currentColor);
-                fadeTweener.Kill();
-                success = false;
+                success = true;
             }
-        });
+        }
 
-        return success;
+        StopTainting(jew, success);
+    }
+
+    // Switch to tainting mode, add jew, start fade
+    private void Taint(GameObject jew)
+    {
+        Debug.Log("Start Tainting");
+        if (_isUsingAnimator) _enemyAnimator.SetBool("isTainting", true);
+
+        _isTainting = true;
+        StartCoroutine(TaintJew(jew));
     }
 
     private void StopTainting(GameObject jew, bool success)
     {
-        _enemyAnimator.SetBool("isTainting", false);
+        if (_isUsingAnimator) _enemyAnimator.SetBool("isTainting", false);
 
         _isTainting = false;
 
@@ -100,13 +103,6 @@ public class TempEnemyControler : MonoBehaviour
         {
             GameManager.Instance.KillJew(jew);
         }
-    }
-
-    private void TaintingProcess(GameObject jew)
-    {
-        // case 2
-        bool successfullyTainted = StartTainting(jew);
-        StopTainting(jew, successfullyTainted);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -117,7 +113,7 @@ public class TempEnemyControler : MonoBehaviour
         {
             if (other.gameObject.GetComponent<TempJewControler>().CurrentState == TempJewControler.State.Free)
             {
-                TaintingProcess(other.gameObject);
+                Taint(other.gameObject);
             }
         }
     }

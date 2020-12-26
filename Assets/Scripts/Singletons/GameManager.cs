@@ -1,22 +1,27 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Singletons
 {
     public class GameManager : Singleton<GameManager>
     {
-        [Header("Objects in game")] [SerializeField]
-        private List<TempJewControler> _jewsInGame;
-
+        [Header("Objects in game")] 
+        [SerializeField] private List<TempJewControler> _jewsInGame;
         [SerializeField] private List<TempEnemyControler> _enemiesInGame;
         [SerializeField] private float spawnOffset = 5f;
 
-        // Start is called before the first frame update
+        [Header("Points")]
+        [SerializeField] private int _playerScore;
+        [SerializeField] private int _playerLives;
+
         public Bounds GameBounds => ObjectSpawner.Instance.GameBounds;
 
         void Start()
         {
+            _playerLives = UIController.Instance.GetHeartAmount();
+            _playerScore = UIController.Instance.GetScore();
             _jewsInGame = new List<TempJewControler>();
             _enemiesInGame = new List<TempEnemyControler>();
             TestSpawn();
@@ -39,7 +44,10 @@ namespace Singletons
             //
             //     seq.AppendInterval(1);
             // }
-            seq.AppendCallback(SpawnJew);
+            for (int _ = 0; _ < UIController.Instance.GetHeartAmount(); ++_)
+            {
+                seq.AppendCallback(SpawnJew);
+            }
             seq.AppendCallback(SpawnEnemy);
             seq.Play();
         }
@@ -94,10 +102,19 @@ namespace Singletons
 
         public void KillJew(GameObject jew)
         {
+            UIController.Instance.LoseLife();
+            _playerLives = UIController.Instance.GetHeartAmount();
+            _playerScore = UIController.Instance.GetScore();
+
             Debug.Log("Killing Jew");
             var jewController = _jewsInGame.Find((item) => item.gameObject == jew);
             _jewsInGame.Remove(jewController);
             ObjectSpawner.Instance.RemoveObject(jewController);
+
+            if (_playerLives <= 0)
+            {
+                UIController.Instance.SwitchToEndGameUI();
+            }
         }
 
         public void KillEnemy(GameObject enemy)
