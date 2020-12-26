@@ -16,6 +16,7 @@ public class ThrowerController : MonoBehaviour
     private List<GameObject> _throwingObjects;
     private GameObject _currThrowingObj;
     // private PathFollow _pathFollow;
+    [SerializeField]private Transform catcherTransform;
 
    
     // Forward/left/right vectors at time of fire
@@ -24,10 +25,13 @@ public class ThrowerController : MonoBehaviour
     private Vector3 _targetOriginalRight;
     private bool _isAiming; // currently aiming _target
     [SerializeField] private float _boundaryDegree = 45f;
+    [SerializeField] private Animator _parentAnimator;
+    private Vector3 _targetLoc;
 
     // Start is called before the first frame update
     void Start()
     {
+        _parentAnimator = GetComponentInParent<Animator>();
         _isAiming = false;
         _orgLocalPosTargetObj = _target.transform.localPosition;
     }
@@ -46,13 +50,12 @@ public class ThrowerController : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            Debug.Log("Fire");
             if (_currThrowingObj == null)
             {
                 return;
             }
-            var targetLoc = ExitAimMode();
-            Throw(targetLoc);
-            _currThrowingObj = null;
+            _parentAnimator.SetTrigger("Throw");
         }
     }
     /**
@@ -63,13 +66,13 @@ public class ThrowerController : MonoBehaviour
         _isAiming = false;
         _target.transform.parent = gameObject.transform;
 
-        var targetLoc = _target.transform.position;
+        _targetLoc = _target.transform.position;
         _target.transform.localPosition = _orgLocalPosTargetObj;
 
         _currThrowingObj.transform.SetParent(null);
 
         _target.SetActive(false);
-        return targetLoc;
+        return _targetLoc;
     }
 
     private void HandleAimModePhysics()
@@ -129,16 +132,17 @@ public class ThrowerController : MonoBehaviour
 
     // ReSharper disable Unity.PerformanceAnalysis
     // Maybe change to DOTween
-    public void Throw(Vector3 target)
+    public void Throw()
     {
-        target.y = -4.5f / 2; // for now just manual caluculation
+        _parentAnimator.speed = 0;
+        var targetLoc = ExitAimMode();
         var start = _currThrowingObj.transform.position;
         // Debug.DrawLine(start, target, Color.red, 2f);
-        var midPoint = (target + start) / 2;
+        var midPoint = (_targetLoc + start) / 2;
         midPoint.y += height;
         // Debug.DrawLine(start, midPoint, Color.cyan, 2f);
 
-        BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, target})
+        BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, _targetLoc})
         {
             AutoControlLength = .5f, GlobalNormalsAngle = 90
         };
@@ -146,14 +150,18 @@ public class ThrowerController : MonoBehaviour
         var pc = ballisticPathGO.AddComponent<PathCreator>();
         var pathFollow = _currThrowingObj.GetComponent<PathFollow>();
         pc.bezierPath = path;
-        
         pathFollow.pathCreator = pc;
+        _currThrowingObj.transform.SetParent(null);
         pathFollow.pathObj = ballisticPathGO;
+        
+        _currThrowingObj = null;
+        _targetLoc = Vector3.zero;
+        _parentAnimator.speed = 1;
     }
 
     public void AddObjToThrow(GameObject obj)
     {
-        obj.transform.SetParent(transform);
+        obj.transform.SetParent(startLocalTransformThrowingObj);
         obj.transform.localPosition = startLocalTransformThrowingObj.localPosition;
         obj.transform.localRotation = startLocalTransformThrowingObj.localRotation;
         _currThrowingObj = obj;

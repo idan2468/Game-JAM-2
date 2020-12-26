@@ -20,9 +20,12 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private bool isUsingAnimator = false;
 
+    [SerializeField] private ThrowerController _throwerController;
+
     // Start is called before the first frame update
     void Start()
     {
+        _throwerController = GetComponentInChildren<ThrowerController>();
         _playerController = GetComponent<CharacterController>();
         if (isUsingAnimator)
         {
@@ -40,10 +43,7 @@ public class PlayerController : MonoBehaviour
         if (isUsingAnimator)
         {
             _myAnimator.SetFloat(speedId, velocity.magnitude);
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _myAnimator.SetTrigger(throwId);
-            }
+  
         }
 
         _playerController.Move(velocity * Time.deltaTime);
@@ -80,4 +80,15 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, step);
         return forwardAccordingToCamera;
     }
+
+    public void CatchJew()
+    {
+        
+    }
+
+    public void ThrowJew()
+    {
+        _throwerController.Throw();
+    }
+    
 }

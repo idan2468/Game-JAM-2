@@ -20,6 +20,10 @@ public class Catcher : MonoBehaviour
     //#todo Check if the golem is empty handed before adding the obj (here or just in addObjToThrow
     private void OnTriggerEnter(Collider other)
     {
-        _throwerAPI.AddObjToThrow(other.gameObject);
+        if(other.CompareTag("Jew"))
+        {
+            _throwerAPI.AddObjToThrow(other.gameObject);
+            other.gameObject.GetComponent<TempJewControler>().EnterGolemState();
+        }
     }
 }

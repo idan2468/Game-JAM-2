@@ -616,6 +616,8 @@ GameObject:
   - component: {fileID: -4861785718661920275}
   - component: {fileID: 8053736591507810657}
   - component: {fileID: 8145078506179769469}
+  - component: {fileID: -7944141295000598910}
+  - component: {fileID: 3618137245212876716}
   m_Layer: 0
   m_Name: Jew
   m_TagString: Jew
@@ -685,8 +687,43 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.18, y: 5.7, z: 4.7}
-  m_Center: {x: 0, y: 4.41, z: 0.78}
+  m_Size: {x: 4.18, y: 9.66, z: 4.7}
+  m_Center: {x: 0, y: 4.43, z: 0.78}
+--- !u!54 &-7944141295000598910
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309803835193751619}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
+--- !u!95 &3618137245212876716
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309803835193751619}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3326647471715851032
 GameObject:
   m_ObjectHideFlags: 0

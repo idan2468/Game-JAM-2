@@ -111,10 +111,10 @@ public class TempEnemyControler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Work");
         // Catch Jew if he's free
         if (other.tag.Equals("Jew"))
         {
+            Debug.Log("Collided with jew");
             if (other.gameObject.GetComponent<TempJewControler>().CurrentState == TempJewControler.State.Free)
             {
                 TaintingProcess(other.gameObject);

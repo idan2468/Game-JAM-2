@@ -40,7 +40,7 @@ namespace Singletons
             //     seq.AppendInterval(1);
             // }
             seq.AppendCallback(SpawnJew);
-            seq.AppendCallback(SpawnEnemy);
+            // seq.AppendCallback(SpawnEnemy);
             seq.Play();
         }
 

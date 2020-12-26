@@ -8,6 +8,7 @@ TagManager:
   - Jew
   - Heart
   - Score
+  - GolemHand
   layers:
   - Default
   - TransparentFX
