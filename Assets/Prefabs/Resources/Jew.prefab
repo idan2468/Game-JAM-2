@@ -656,7 +656,7 @@ MonoBehaviour:
   pathCreator: {fileID: 0}
   pathObj: {fileID: 0}
   endOfPathInstruction: 0
-  speed: 10
+  speed: 20
 --- !u!114 &8053736591507810657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,6 +675,7 @@ MonoBehaviour:
     m_Extent: {x: 0, y: 0, z: 0}
   _movementSpeed: 0.5
   _rotationSpeed: 2
+  _isUsingAnimator: 1
   _currentState: 0
 --- !u!65 &8145078506179769469
 BoxCollider:
@@ -715,7 +716,7 @@ Animator:
   m_GameObject: {fileID: 3309803835193751619}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5ddc7d5c7dbefd646a412fc871fd983d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

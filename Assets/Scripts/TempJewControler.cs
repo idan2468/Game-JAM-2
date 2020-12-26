@@ -19,10 +19,10 @@ public class TempJewControler : MonoBehaviour
     [SerializeField] private bool _isUsingAnimator = false;
     public enum State
     {
-        Free,
-        CaughtByEnemy,
-        CaughtByGolem,
-        Thrown
+        Free = 0,
+        CaughtByEnemy = 1,
+        CaughtByGolem = 2,
+        Thrown = 3
     };
     [SerializeField]private State _currentState = State.Free;
 
@@ -35,7 +35,8 @@ public class TempJewControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _jewAnimator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame

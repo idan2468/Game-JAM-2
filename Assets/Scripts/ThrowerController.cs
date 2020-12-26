@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
+using DG.Tweening;
 using UnityEngine;
 using PathCreation;
 using UnityEditor;
@@ -16,9 +18,9 @@ public class ThrowerController : MonoBehaviour
     private List<GameObject> _throwingObjects;
     private GameObject _currThrowingObj;
     // private PathFollow _pathFollow;
-    [SerializeField]private Transform catcherTransform;
+    [SerializeField]private Transform jewsInGame;
 
-   
+
     // Forward/left/right vectors at time of fire
     private Vector3 _targetOriginalForward; 
     private Vector3 _targetOriginalLeft; 
@@ -26,8 +28,6 @@ public class ThrowerController : MonoBehaviour
     private bool _isAiming; // currently aiming _target
     [SerializeField] private float _boundaryDegree = 45f;
     [SerializeField] private Animator _parentAnimator;
-    private Vector3 _targetLoc;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +55,8 @@ public class ThrowerController : MonoBehaviour
             {
                 return;
             }
+            var normDirection = (_target.transform.position- transform.position).normalized;
+            transform.rotation = Quaternion.LookRotation(normDirection);
             _parentAnimator.SetTrigger("Throw");
         }
     }
@@ -66,13 +68,13 @@ public class ThrowerController : MonoBehaviour
         _isAiming = false;
         _target.transform.parent = gameObject.transform;
 
-        _targetLoc = _target.transform.position;
+        var targetLoc = _target.transform.position;
         _target.transform.localPosition = _orgLocalPosTargetObj;
 
         _currThrowingObj.transform.SetParent(null);
 
         _target.SetActive(false);
-        return _targetLoc;
+        return targetLoc;
     }
 
     private void HandleAimModePhysics()
@@ -138,11 +140,11 @@ public class ThrowerController : MonoBehaviour
         var targetLoc = ExitAimMode();
         var start = _currThrowingObj.transform.position;
         // Debug.DrawLine(start, target, Color.red, 2f);
-        var midPoint = (_targetLoc + start) / 2;
+        var midPoint = (targetLoc + start) / 2;
         midPoint.y += height;
         // Debug.DrawLine(start, midPoint, Color.cyan, 2f);
 
-        BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, _targetLoc})
+        BezierPath path = new BezierPath(new List<Vector3>() {start, midPoint, targetLoc})
         {
             AutoControlLength = .5f, GlobalNormalsAngle = 90
         };
@@ -151,16 +153,15 @@ public class ThrowerController : MonoBehaviour
         var pathFollow = _currThrowingObj.GetComponent<PathFollow>();
         pc.bezierPath = path;
         pathFollow.pathCreator = pc;
-        _currThrowingObj.transform.SetParent(null);
         pathFollow.pathObj = ballisticPathGO;
-        
+        _currThrowingObj.GetComponent<TempJewControler>().EnterThrownState();
         _currThrowingObj = null;
-        _targetLoc = Vector3.zero;
         _parentAnimator.speed = 1;
     }
 
     public void AddObjToThrow(GameObject obj)
     {
+        jewsInGame = obj.transform.parent;
         obj.transform.SetParent(startLocalTransformThrowingObj);
         obj.transform.localPosition = startLocalTransformThrowingObj.localPosition;
         obj.transform.localRotation = startLocalTransformThrowingObj.localRotation;
