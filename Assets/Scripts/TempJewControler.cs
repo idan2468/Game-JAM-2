@@ -79,6 +79,7 @@ public class TempJewControler : MonoBehaviour
         // TODO: COMPLETE
         SetBounds(transform.position, new Vector3(_boundsExtent, _movementBounds.extents.y, _boundsExtent));
         _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
+        EnterFreeState();
     }
 
     public void EnterFreeState()
@@ -88,11 +89,16 @@ public class TempJewControler : MonoBehaviour
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Free);
     }
 
-    public void EnterTaintState()
+    public void EnterTaintState(GameObject enemy)
     {
-        // case 3
         // TODO: COMPLETE 
         _currentState = State.CaughtByEnemy;
+
+        // Turn Jew to face enemy
+        var normDirection = (enemy.transform.position - transform.position).normalized;
+        var lookRotation = Quaternion.LookRotation(normDirection);
+        transform.localRotation = lookRotation;
+
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.CaughtByEnemy);
     }
 

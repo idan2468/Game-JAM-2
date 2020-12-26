@@ -56,7 +56,7 @@ public class ThrowerController : MonoBehaviour
                 return;
             }
             var normDirection = (_target.transform.position- transform.position).normalized;
-            transform.rotation = Quaternion.LookRotation(normDirection);
+            transform.parent.rotation = Quaternion.LookRotation(normDirection);
             _parentAnimator.SetTrigger("Throw");
         }
     }
