@@ -17,12 +17,13 @@ public class UIController : Singleton<UIController>
     [SerializeField] private GameObject endGameUI;
     private const int TOTAL_NUN_HEARTS = 3;
     private int _currLife = TOTAL_NUN_HEARTS;
-    private int _currScore;
+    private int _currScore = 0;
     private Tweener _tween;
     private TextMeshProUGUI _score;
 
     private void Start()
     {
+        AddScore(0);
         playerLife = new Image[]{};
         LoadGameSceneUIObjects();
         SceneManager.activeSceneChanged += ((arg0, scene) =>  LoadGameSceneUIObjects());

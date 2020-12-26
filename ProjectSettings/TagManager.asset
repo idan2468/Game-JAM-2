@@ -9,6 +9,7 @@ TagManager:
   - Heart
   - Score
   - GolemHand
+  - Synagogue
   layers:
   - Default
   - TransparentFX
