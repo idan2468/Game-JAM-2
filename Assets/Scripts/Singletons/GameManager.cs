@@ -44,10 +44,12 @@ namespace Singletons
             //
             //     seq.AppendInterval(1);
             // }
-            for (int _ = 0; _ < UIController.Instance.GetHeartAmount(); ++_)
+            for (int _ = 0; _ < 10; ++_)
             {
                 seq.AppendCallback(SpawnJew);
             }
+            seq.AppendCallback(SpawnEnemy);
+            seq.AppendCallback(SpawnEnemy);
             seq.AppendCallback(SpawnEnemy);
             seq.Play();
         }
@@ -102,7 +104,6 @@ namespace Singletons
 
         public void KillJew(GameObject jew)
         {
-            UIController.Instance.LoseLife();
             _playerLives = UIController.Instance.GetHeartAmount();
             _playerScore = UIController.Instance.GetScore();
 
@@ -111,10 +112,10 @@ namespace Singletons
             _jewsInGame.Remove(jewController);
             ObjectSpawner.Instance.RemoveObject(jewController);
 
-            if (_playerLives <= 0)
-            {
-                UIController.Instance.SwitchToEndGameUI();
-            }
+            //if (_playerLives <= 0)
+            //{
+            //    UIController.Instance.SwitchToEndGameUI();
+            //}
         }
 
         public void KillEnemy(GameObject enemy)

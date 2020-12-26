@@ -45,7 +45,16 @@ public class TempEnemyControler : MonoBehaviour
             if(!_isTainting)
             {
                 var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
-                _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
+                if (closestJew != null && (closestJew.GetComponent<TempJewControler>().GetChase() == null ||
+                    closestJew.GetComponent<TempJewControler>().GetChase() == gameObject))
+                {
+                    closestJew.GetComponent<TempJewControler>().SetChase(gameObject);
+                    _currentTargetPosition = closestJew.transform.position;
+                }
+                else
+                {
+                    _currentTargetPosition = transform.position;
+                }
             }
             yield return new WaitForSeconds(_findJewInterval);
         }
