@@ -23,7 +23,7 @@ public class TempJewControler : MonoBehaviour
         CaughtByGolem,
         Thrown
     };
-    private State _currentState = State.Free;
+    [SerializeField]private State _currentState = State.Free;
 
     public State CurrentState
     {
@@ -48,7 +48,7 @@ public class TempJewControler : MonoBehaviour
     
     private void PlayerMove()
     {
-        var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
+        var angleToTarget = Vector3.Angle(transform.forward, (_currentTargetPosition - transform.position).normalized);
         if (angleToTarget > 0)
         {
             var normDirection = (_currentTargetPosition - transform.position).normalized;
@@ -87,6 +87,7 @@ public class TempJewControler : MonoBehaviour
 
     public void EnterTaintState()
     {
+        // case 3
         // TODO: COMPLETE 
         _currentState = State.CaughtByEnemy;
         _jewAnimator.SetInteger("State", (int) State.CaughtByEnemy);

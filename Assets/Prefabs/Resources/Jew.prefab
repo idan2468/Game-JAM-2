@@ -570,8 +570,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 7707149270743040621}
   m_AABB:
-    m_Center: {x: -0.31981122, y: 0.36789727, z: 0.36025834}
-    m_Extent: {x: 3.4462137, y: 3.9747026, z: 3.052659}
+    m_Center: {x: -0.6757238, y: 0.8577919, z: 0.26125193}
+    m_Extent: {x: 3.0903013, y: 3.484808, z: 2.2896175}
   m_DirtyAABB: 0
 --- !u!1 &2535670244323002196
 GameObject:
@@ -615,9 +615,10 @@ GameObject:
   - component: {fileID: 2784660127272313593}
   - component: {fileID: -4861785718661920275}
   - component: {fileID: 8053736591507810657}
+  - component: {fileID: 8145078506179769469}
   m_Layer: 0
   m_Name: Jew
-  m_TagString: Untagged
+  m_TagString: Jew
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -670,8 +671,22 @@ MonoBehaviour:
   _movementBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  _movementSpeed: 2
+  _movementSpeed: 0.5
   _rotationSpeed: 2
+  _currentState: 0
+--- !u!65 &8145078506179769469
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309803835193751619}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.18, y: 5.7, z: 4.7}
+  m_Center: {x: 0, y: 4.41, z: 0.78}
 --- !u!1 &3326647471715851032
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,11 +6,11 @@ using Singletons;
 
 public class TempEnemyControler : MonoBehaviour
 {
-    private Vector3 _currentTargetPosition;
+    [SerializeField]private Vector3 _currentTargetPosition;
     [SerializeField] private float _movementSpeed = 2f;
     [SerializeField] private float _rotationSpeed = 2f;
 
-    private bool _isTainting = false; // Enemy is in tainting state
+    [SerializeField] private bool _isTainting = false; // Enemy is in tainting state
     [SerializeField] private float _taintDuration = 5f; // Time it takes to taint a Jew
 
     private Animator _enemyAnimator;
@@ -21,6 +21,8 @@ public class TempEnemyControler : MonoBehaviour
     void Start()
     {
         _enemyAnimator = GetComponent<Animator>();
+        //case 1
+        StartCoroutine(FindTarget());
     }
 
     // Update is called once per frame
@@ -29,7 +31,6 @@ public class TempEnemyControler : MonoBehaviour
         // Move towards closest Jew
         if(!_isTainting)
         {
-            StartCoroutine("FindTarget");
             EnemyMove();
         }
     }
@@ -38,9 +39,11 @@ public class TempEnemyControler : MonoBehaviour
     {
         while (true)
         {
-            var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
-            _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
-
+            if(!_isTainting)
+            {
+                var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
+                _currentTargetPosition = closestJew == null ? transform.position : closestJew.transform.position;
+            }
             yield return new WaitForSeconds(_findJewInterval);
         }
     }
@@ -55,12 +58,13 @@ public class TempEnemyControler : MonoBehaviour
             var lookRotation = Quaternion.LookRotation(normDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
         }
-        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.deltaTime);
     }
 
     // Switch to tainting mode, add jew, start fade
     private bool StartTainting(GameObject jew)
     {
+        Debug.Log("Start Tainting");
         _enemyAnimator.SetBool("isTainting", true);
 
         _isTainting = true;
@@ -100,12 +104,14 @@ public class TempEnemyControler : MonoBehaviour
 
     private void TaintingProcess(GameObject jew)
     {
+        // case 2
         bool successfullyTainted = StartTainting(jew);
         StopTainting(jew, successfullyTainted);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Work");
         // Catch Jew if he's free
         if (other.tag.Equals("Jew"))
         {

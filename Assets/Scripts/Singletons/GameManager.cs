@@ -25,22 +25,23 @@ namespace Singletons
         private void TestSpawn()
         {
             var seq = DOTween.Sequence();
-            var numOfObjects = 5;
-            for (int i = 0; i < numOfObjects; i++)
-            {
-                if (Random.Range(0, 2) == 0)
-                {
-                    seq.AppendCallback(SpawnJew);
-                }
-                else
-                {
-                    seq.AppendCallback(SpawnEnemy);
-                }
-
-                seq.AppendInterval(1);
-            }
-
-            seq.Play().OnComplete(() => KillJew(_jewsInGame[0].gameObject));
+            // var numOfObjects = 10;
+            // for (int i = 0; i < numOfObjects; i++)
+            // {
+            //     if (Random.Range(0, 2) == 0)
+            //     {
+            //         seq.AppendCallback(SpawnJew);
+            //     }
+            //     else
+            //     {
+            //         seq.AppendCallback(SpawnEnemy);
+            //     }
+            //
+            //     seq.AppendInterval(1);
+            // }
+            seq.AppendCallback(SpawnJew);
+            seq.AppendCallback(SpawnEnemy);
+            seq.Play();
         }
 
         public Vector3 RandomPointInBounds(Bounds bounds)
