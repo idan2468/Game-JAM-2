@@ -91,7 +91,6 @@ public class TempEnemyControler : MonoBehaviour
         var seq = GetSequenceForTaintBar();
         seq.Play();
         yield return seq.WaitForCompletion();
-        // yield return new WaitForSeconds(_taintDuration);
         if (jewScript != null)
         {
             if (jewScript.CurrentState == TempJewControler.State.CaughtByEnemy)
