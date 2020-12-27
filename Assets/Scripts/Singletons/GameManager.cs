@@ -29,8 +29,6 @@ namespace Singletons
 
         void Start()
         {
-            Time.timeScale = 1;
-            _playerLives = 3;
             _playerScore = 0;
             _jewsInGame = new List<JewController>();
             _enemiesInGame = new List<EnemyController>();
@@ -111,7 +109,6 @@ namespace Singletons
                 {
                     continue;
                 }
-
                 var currDist = Vector3.Distance(pos, jew.transform.position);
                 if (currDist < bestDist)
                 {
@@ -159,7 +156,6 @@ namespace Singletons
         private void EndGame()
         {
             UIController.Instance.SwitchToEndGameUI();
-            Time.timeScale = 0;
         }
 
         public void LoseLife()

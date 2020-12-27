@@ -16,7 +16,7 @@ public class UIController : Singleton<UIController>
     [Header("UI Canvas")] 
     [SerializeField] private GameObject gameSceneUI;
     [SerializeField] private GameObject endGameUI;
-    private const int TOTAL_NUN_HEARTS = 3;
+    private const int TOTAL_NUN_HEARTS = 6;
     private int _currHeartIndex;
     private int _currScore = 0;
     private Tweener _tween;
@@ -53,6 +53,12 @@ public class UIController : Singleton<UIController>
         if (_score == null)
         {
             _score = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
+        }
+
+        for (int i = _currHeartIndex+1; i < playerLife.Length; i++)
+        {
+            var heartGameObject = playerLife[i].gameObject.transform.parent.gameObject;
+            heartGameObject.SetActive(false);
         }
     }
 

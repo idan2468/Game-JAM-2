@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1870941cb35f45bba5e734dcb53c32cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heartAnimationTime: 2
   playerLife:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  gameSceneUI: {fileID: 0}
+  endGameUI: {fileID: 0}

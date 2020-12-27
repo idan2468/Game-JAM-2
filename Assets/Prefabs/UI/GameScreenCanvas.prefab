@@ -245,14 +245,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lives
       objectReference: {fileID: 0}
-    - target: {fileID: 3468659014314235749, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
-      propertyPath: m_TagString
-      value: Heart
-      objectReference: {fileID: 0}
-    - target: {fileID: 6740854449430144423, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
-      propertyPath: m_TagString
-      value: Heart
-      objectReference: {fileID: 0}
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -283,11 +275,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 435
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 145
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -319,11 +311,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -217.5
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -72.5
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -336,10 +328,6 @@ PrefabInstance:
     - target: {fileID: 7317318554097672969, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8469560295346833181, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
-      propertyPath: m_TagString
-      value: Heart
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6379014f96815af4fb1a76cd61b331af, type: 3}
