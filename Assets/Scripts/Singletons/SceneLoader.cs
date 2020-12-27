@@ -1,9 +1,12 @@
 ﻿using System;
+using DG.Tweening;
+using Singletons;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : Singleton<SceneLoader>
 {
+    private static Transform m_DestroyOnLoadGO;
     private void Start()
     {
         MusicController.Instance.PlayMenuBGM();
@@ -19,6 +22,13 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         MoveToScene(Enum.GetName(typeof(Scene),scene));
     }
+    
+    public static void DestroyOnLoad(GameObject aGO)
+    {
+        if (m_DestroyOnLoadGO == null)
+            m_DestroyOnLoadGO = (new GameObject("DestroyOnLoad")).transform;
+        aGO.transform.parent = m_DestroyOnLoadGO;
+    }
 
     public void MoveToScene(string sceneName)
     {
@@ -29,11 +39,35 @@ public class SceneLoader : Singleton<SceneLoader>
                 break;
             case "GameScene":
                 MusicController.Instance.PlayGameBGM();
+                ResetGameSceneObjects();
                 break;
         }
         SceneManager.LoadScene(sceneName);
     }
 
+    private void ResetGameSceneObjects()
+    {
+        var gameManager = FindObjectOfType<GameManager>();
+        var uiController = FindObjectOfType<UIController>();
+        if (gameManager == null)
+        {
+            Debug.LogWarning("Game manger not found in scene");
+        }
+        else
+        {
+            DestroyOnLoad(gameManager.gameObject);
+        }
+        if (uiController == null)
+        {
+            Debug.LogWarning("UIController not found in scene");
+        }
+        else
+        {
+            DestroyOnLoad(uiController.gameObject);
+        }
+
+        DOTween.KillAll();
+    }
     public void ExitGame()
     {
         Application.Quit();

@@ -24,10 +24,8 @@ public class UIController : Singleton<UIController>
 
     private void Start()
     {
-        _currHeartIndex = GameManager.Instance.PlayerLives - 1;
-        playerLife = new Image[]{};
-        LoadGameSceneUIObjects();
-        SceneManager.activeSceneChanged += ((arg0, scene) =>  LoadGameSceneUIObjects());
+        ResetUIController();
+        // SceneManager.activeSceneChanged += ((arg0, scene) =>  LoadGameSceneUIObjects());
     }
 
     public int GetHeartAmount()
@@ -92,5 +90,12 @@ public class UIController : Singleton<UIController>
     {
         endGameUI.SetActive(true);
         gameSceneUI.SetActive(false);
+    }
+
+    public void ResetUIController()
+    {
+        _currHeartIndex = GameManager.Instance.PlayerLives - 1;
+        playerLife = new Image[]{};
+        LoadGameSceneUIObjects();
     }
 }

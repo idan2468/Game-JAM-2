@@ -923,7 +923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3109835782642568086, guid: 58a53dc11673b2643897b06edbe4d23e, type: 3}
       propertyPath: _playerLives
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3109835782642568086, guid: 58a53dc11673b2643897b06edbe4d23e, type: 3}
       propertyPath: spawnEnemyMaxTime

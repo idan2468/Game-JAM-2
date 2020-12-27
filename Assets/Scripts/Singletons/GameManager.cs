@@ -29,15 +29,7 @@ namespace Singletons
 
         void Start()
         {
-            _playerScore = 0;
-            _jewsInGame = new List<JewController>();
-            _enemiesInGame = new List<EnemyController>();
-            
-            UIController.Instance.UpdateScoreUI(_playerScore);
-            
-            // TestSpawn();
-            StartCoroutine(SpawnJews());
-            StartCoroutine(SpawnEnemies());
+            ResetGameManager();
         }
 
         private IEnumerator SpawnJews()
@@ -166,6 +158,19 @@ namespace Singletons
             {
                 EndGame();
             }
+        }
+
+        public void ResetGameManager()
+        {
+            _playerScore = 0;
+            _jewsInGame = new List<JewController>();
+            _enemiesInGame = new List<EnemyController>();
+            
+            UIController.Instance.UpdateScoreUI(_playerScore);
+            
+            // TestSpawn();
+            StartCoroutine(SpawnJews());
+            StartCoroutine(SpawnEnemies());
         }
     }
 }
