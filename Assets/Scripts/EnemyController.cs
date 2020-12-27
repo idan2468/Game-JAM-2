@@ -156,6 +156,8 @@ public class EnemyController : MonoBehaviour
             GameManager.Instance.LoseLife();
             GameManager.Instance.KillJew(jew);
         }
+
+        _currentTargetObject = gameObject;
     }
 
     private void OnTriggerEnter(Collider other)
