@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,9 @@ namespace Singletons
 {
     public class GameManager : Singleton<GameManager>
     {
+        [Header("Spawn Timing")]
+        [SerializeField] private float spawnMinTime;
+        [SerializeField]  private float spawnMaxTime;
         [Header("Objects in game")] 
         [SerializeField] private List<TempJewControler> _jewsInGame;
         [SerializeField] private List<TempEnemyControler> _enemiesInGame;
@@ -24,7 +28,18 @@ namespace Singletons
             _playerScore = UIController.Instance.GetScore();
             _jewsInGame = new List<TempJewControler>();
             _enemiesInGame = new List<TempEnemyControler>();
+            
             TestSpawn();
+            StartCoroutine(SpawnJews());
+        }
+
+        private IEnumerator SpawnJews()
+        {
+            while (true)
+            {
+                SpawnJew();
+                yield return new WaitForSeconds(Random.Range(spawnMinTime,spawnMaxTime));
+            }
         }
 
         private void TestSpawn()
@@ -44,10 +59,10 @@ namespace Singletons
             //
             //     seq.AppendInterval(1);
             // }
-            for (int _ = 0; _ < 3; ++_)
-            {
-                seq.AppendCallback(SpawnJew);
-            }
+            // for (int _ = 0; _ < 3; ++_)
+            // {
+            //     seq.AppendCallback(SpawnJew);
+            // }
             seq.AppendCallback(SpawnEnemy);
             seq.Play();
         }

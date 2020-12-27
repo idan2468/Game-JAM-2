@@ -43,9 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a69c9283cb1cf47a6b506f1e731614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnMinTime: 5
+  spawnMaxTime: 10
   _jewsInGame: []
   _enemiesInGame: []
   spawnOffset: 5
-  _gameUIManager: {fileID: 0}
   _playerScore: 0
   _playerLives: 3
