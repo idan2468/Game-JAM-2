@@ -110,7 +110,6 @@ public class JewController : MonoBehaviour
     {
         // TODO: COMPLETE 
         _currentState = State.CaughtByEnemy;
-        SetChase(null);
 
         // Turn Jew to face enemy
         var normDirection = (enemy.transform.position - transform.position).normalized;

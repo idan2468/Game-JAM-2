@@ -85,28 +85,28 @@ public class ThrowerController : MonoBehaviour
     private void HandleAimModePhysics()
     {
         // If direction is withing boundaries then switch A and D 
-        var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
+        //var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
         if (Input.GetKey(KeyCode.A))
         {
-            if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
-            {
-                _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-            }
-            else
-            {
+            //if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
+            //{
+            //    _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
+            //}
+            //else
+            //{
                 _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-            }
+            //}
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            if (degree >= -135f && degree <= -45f)
-            {
-                _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-            }
-            else
-            {
+            //if (degree >= -135f && degree <= -45f)
+            //{
+            //    _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
+            //}
+            //else
+            //{
                 _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-            }
+            //}
         }
 
         if (Input.GetKey(KeyCode.Space))

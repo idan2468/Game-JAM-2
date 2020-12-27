@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private Vector3 _currentTargetPosition;
+    //[SerializeField] private Vector3 _currentTargetPosition;
     [SerializeField] private float _movementSpeed = 2f;
     [SerializeField] private float _rotationSpeed = 2f;
 
@@ -22,11 +22,13 @@ public class EnemyController : MonoBehaviour
     private float _findJewInterval = .25f;
 
     [SerializeField] private float lifeTime;
-    private JewController _taintedJew;
+    [SerializeField] private JewController _taintedJew;
+    [SerializeField] private GameObject _currentTargetObject;
 
     // Start is called before the first frame update
     void Start()
     {
+        _currentTargetObject = gameObject;
         _enemyAnimator = GetComponentInChildren<Animator>();
         //case 1
         StartCoroutine(FindTarget());
@@ -63,12 +65,17 @@ public class EnemyController : MonoBehaviour
                 if (closestJew != null && (closestJew.GetComponent<JewController>().GetChase() == null ||
                     closestJew.GetComponent<JewController>().GetChase() == gameObject))
                 {
+                    if (_currentTargetObject.tag.Equals("Jew") && _currentTargetObject != closestJew)
+                    {
+                        _currentTargetObject.GetComponent<JewController>().SetChase(null);
+                    }
+
                     closestJew.GetComponent<JewController>().SetChase(gameObject);
-                    _currentTargetPosition = closestJew.transform.position;
+                    _currentTargetObject = closestJew;
                 }
                 else
                 {
-                    _currentTargetPosition = transform.position;
+                    _currentTargetObject = gameObject;
                 }
             }
 
@@ -79,16 +86,16 @@ public class EnemyController : MonoBehaviour
     // Move enemy in direction of _currentTargetPosition
     private void EnemyMove()
     {
-        var angleToTarget = Vector3.Angle(transform.forward, _currentTargetPosition - transform.position);
+        var angleToTarget = Vector3.Angle(transform.forward, _currentTargetObject.transform.position - transform.position);
         if (angleToTarget > 0)
         {
-            var normDirection = (_currentTargetPosition - transform.position).normalized;
+            var normDirection = (_currentTargetObject.transform.position - transform.position).normalized;
             var lookRotation = Quaternion.LookRotation(normDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
         }
 
         transform.position =
-            Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.deltaTime);
+            Vector3.MoveTowards(transform.position, _currentTargetObject.transform.position, _movementSpeed * Time.deltaTime);
     }
 
     private Sequence GetSequenceForTaintBar()
@@ -157,7 +164,7 @@ public class EnemyController : MonoBehaviour
         if (other.tag.Equals("Jew"))
         {
             Debug.Log("Collided with jew");
-            if (other.gameObject.GetComponent<JewController>().CurrentState == JewController.State.Free)
+            if (!_isTainting && other.gameObject.GetComponent<JewController>().CurrentState == JewController.State.Free)
             {
                 Taint(other.gameObject);
             }
