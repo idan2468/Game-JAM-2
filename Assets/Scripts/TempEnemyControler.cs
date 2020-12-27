@@ -88,7 +88,6 @@ public class TempEnemyControler : MonoBehaviour
         });
         seq.Append(tainBar.DOFillAmount(0, _taintDuration));
         seq.AppendCallback(() => tainBar.gameObject.SetActive(false));
-        seq.OnKill(() => tainBar.gameObject.SetActive(false));
         return seq;
     }
 
@@ -97,20 +96,19 @@ public class TempEnemyControler : MonoBehaviour
     {
         var jewScript = jew.GetComponent<TempJewControler>();
         jewScript.EnterTaintState(gameObject);
-        var success = true;
+        var success = false;
         var seq = GetSequenceForTaintBar();
-        seq.Play().OnUpdate(() =>
-        {
-            if (jewScript != null)
-            {
-                if (jewScript.CurrentState != TempJewControler.State.CaughtByEnemy)
-                {
-                    seq.Kill();
-                    success = false;
-                }
-            }   
-        });
+        seq.Play();
         yield return seq.WaitForCompletion();
+
+        if (jewScript != null)
+        {
+            if (jewScript.CurrentState == TempJewControler.State.CaughtByEnemy)
+            {
+                success = true;
+            }
+        }
+
         StopTainting(jew, success);
     }
 
