@@ -158,7 +158,7 @@ public class ThrowerController : MonoBehaviour
         pc.bezierPath = path;
         pathFollow.pathCreator = pc;
         pathFollow.pathObj = ballisticPathGO;
-        _currThrowingObj.GetComponent<TempJewControler>().EnterThrownState();
+        _currThrowingObj.GetComponent<JewController>().EnterThrownState();
         _currThrowingObj = null;
         _caughtJew = false;
         _parentAnimator.speed = 1;

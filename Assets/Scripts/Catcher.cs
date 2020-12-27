@@ -23,7 +23,7 @@ public class Catcher : MonoBehaviour
         if(other.CompareTag("Jew"))
         {
             _throwerAPI.AddObjToThrow(other.gameObject);
-            other.gameObject.GetComponent<TempJewControler>().EnterGolemState();
+            other.gameObject.GetComponent<JewController>().EnterGolemState();
         }
     }
 }

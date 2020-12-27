@@ -9,11 +9,14 @@ namespace Singletons
     public class GameManager : Singleton<GameManager>
     {
         [Header("Spawn Timing")]
-        [SerializeField] private float spawnMinTime;
-        [SerializeField]  private float spawnMaxTime;
+        [SerializeField] private float spawnJewMinTime;
+        [SerializeField]  private float spawnJewMaxTime;
+        [SerializeField] private float spawnEnemyMinTime;
+        [SerializeField]  private float spawnEnemyMaxTime;
+        
         [Header("Objects in game")] 
-        [SerializeField] private List<TempJewControler> _jewsInGame;
-        [SerializeField] private List<TempEnemyControler> _enemiesInGame;
+        [SerializeField] private List<JewController> _jewsInGame;
+        [SerializeField] private List<EnemyController> _enemiesInGame;
         [SerializeField] private float spawnOffset = 5f;
 
         [Header("Points")]
@@ -26,11 +29,12 @@ namespace Singletons
         {
             _playerLives = UIController.Instance.GetHeartAmount();
             _playerScore = UIController.Instance.GetScore();
-            _jewsInGame = new List<TempJewControler>();
-            _enemiesInGame = new List<TempEnemyControler>();
+            _jewsInGame = new List<JewController>();
+            _enemiesInGame = new List<EnemyController>();
             
             TestSpawn();
             StartCoroutine(SpawnJews());
+            StartCoroutine(SpawnEnemies());
         }
 
         private IEnumerator SpawnJews()
@@ -38,9 +42,18 @@ namespace Singletons
             while (true)
             {
                 SpawnJew();
-                yield return new WaitForSeconds(Random.Range(spawnMinTime,spawnMaxTime));
+                yield return new WaitForSeconds(Random.Range(spawnJewMinTime,spawnJewMaxTime));
             }
         }
+        
+        private IEnumerator SpawnEnemies()
+                {
+                    while (true)
+                    {
+                        SpawnEnemy();
+                        yield return new WaitForSeconds(Random.Range(spawnEnemyMinTime,spawnEnemyMaxTime));
+                    }
+                }
 
         private void TestSpawn()
         {
@@ -85,11 +98,11 @@ namespace Singletons
         public GameObject GetClosestFreeJew(Vector3 pos)
         {
             var bestDist = float.PositiveInfinity;
-            TempJewControler closestJew = null;
+            JewController closestJew = null;
             var foundJew = false;
             foreach (var jew in _jewsInGame)
             {
-                if (jew.CurrentState != TempJewControler.State.Free)
+                if (jew.CurrentState != JewController.State.Free)
                 {
                     continue;
                 }
@@ -138,6 +151,11 @@ namespace Singletons
             var enemyController = _enemiesInGame.Find((item) => item.gameObject == enemy);
             _enemiesInGame.Remove(enemyController);
             ObjectSpawner.Instance.RemoveObject(enemyController);
+        }
+
+        public void AddScore()
+        {
+            UIController.Instance.AddScore(1);
         }
     }
 }

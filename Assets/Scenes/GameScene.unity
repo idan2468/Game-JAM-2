@@ -824,6 +824,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3109835782642568086, guid: 58a53dc11673b2643897b06edbe4d23e, type: 3}
+      propertyPath: spawnEnemyMaxTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109835782642568086, guid: 58a53dc11673b2643897b06edbe4d23e, type: 3}
+      propertyPath: spawnEnemyMinTime
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4004393687977213252, guid: 58a53dc11673b2643897b06edbe4d23e, type: 3}
       propertyPath: m_Name
       value: GameManager
