@@ -141,6 +141,7 @@ public class JewController : MonoBehaviour
         {
             // TODO: SCORE
             GameManager.Instance.AddScore();
+            other.gameObject.GetComponent<PathFollow>().KillPathObject();
             // Back to object pool
             GameManager.Instance.KillJew(gameObject);
         }

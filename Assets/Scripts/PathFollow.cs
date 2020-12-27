@@ -30,9 +30,14 @@ public class PathFollow : MonoBehaviour
                 pathCreator = null;
                 gameObject.GetComponent<JewController>().EnterFreeState();
                 distanceTravelled = 0;
-                Destroy(pathObj);
+                KillPathObject();
             }
         }
+    }
+
+    public void KillPathObject()
+    {
+        Destroy(pathObj);
     }
 
     // If the path changes during the game, update the distance travelled so that the follower's position on the new path
