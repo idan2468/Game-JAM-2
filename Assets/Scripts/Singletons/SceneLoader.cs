@@ -42,6 +42,7 @@ public class SceneLoader : Singleton<SceneLoader>
                 ResetGameSceneObjects();
                 break;
         }
+        DOTween.KillAll();
         SceneManager.LoadScene(sceneName);
     }
 
@@ -65,8 +66,6 @@ public class SceneLoader : Singleton<SceneLoader>
         {
             DestroyOnLoad(uiController.gameObject);
         }
-
-        DOTween.KillAll();
     }
     public void ExitGame()
     {

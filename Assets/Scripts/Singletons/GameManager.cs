@@ -17,6 +17,7 @@ namespace Singletons
         [Header("Objects in game")] 
         [SerializeField] private List<JewController> _jewsInGame;
         [SerializeField] private List<EnemyController> _enemiesInGame;
+        [SerializeField] private ThrowerController _throwerController;
         [SerializeField] private float spawnOffset = 5f;
 
         [Header("Points")]
@@ -126,6 +127,7 @@ namespace Singletons
         public void KillJew(GameObject jew)
         {
             Debug.Log("Killing Jew");
+            _throwerController.ReleaseJew(jew);
             var jewController = _jewsInGame.Find((item) => item.gameObject == jew);
             _jewsInGame.Remove(jewController);
             ObjectSpawner.Instance.RemoveObject(jewController);
@@ -165,7 +167,7 @@ namespace Singletons
             _playerScore = 0;
             _jewsInGame = new List<JewController>();
             _enemiesInGame = new List<EnemyController>();
-            
+            _throwerController = FindObjectOfType<ThrowerController>();
             UIController.Instance.UpdateScoreUI(_playerScore);
             
             // TestSpawn();

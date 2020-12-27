@@ -6,7 +6,7 @@ using Singletons;
 
 public class JewController : MonoBehaviour
 {
-    public ObjectSpawner myObjectSpawner;
+    // public ObjectSpawner myObjectSpawner;
 
     private float _boundsExtent = 10f;
     [SerializeField] private Bounds _movementBounds;

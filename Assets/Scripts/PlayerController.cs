@@ -80,11 +80,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, step);
         return forwardAccordingToCamera;
     }
-
-    public void CatchJew()
-    {
-        
-    }
+    
 
     public void ThrowJew()
     {

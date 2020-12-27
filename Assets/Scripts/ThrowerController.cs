@@ -176,4 +176,13 @@ public class ThrowerController : MonoBehaviour
         obj.transform.localRotation = startLocalTransformThrowingObj.localRotation;
         _currThrowingObj = obj;
     }
+    
+    public void ReleaseJew(GameObject jew)
+    {
+        if (jew == _currThrowingObj)
+        {
+            _currThrowingObj = null;
+            _caughtJew = false;    
+        }
+    }
 }
