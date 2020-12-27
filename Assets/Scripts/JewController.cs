@@ -149,7 +149,6 @@ public class JewController : MonoBehaviour
         // Hit floor after missed throw
         if (other.tag.Equals("Floor") && _currentState == State.Thrown)
         {
-            
             EnterFreeState();
         }
     }

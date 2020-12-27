@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 
@@ -25,6 +26,7 @@ public class ThrowerController : MonoBehaviour
     [SerializeField] private float _boundaryDegree = 45f;
 
     [SerializeField] private Animator _parentAnimator;
+    public bool CanCatchJew => _currThrowingObj == null;
 
     // Start is called before the first frame update
     void Start()
