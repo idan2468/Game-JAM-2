@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -30,9 +31,18 @@ public class EnemyController : MonoBehaviour
     {
         _currentTargetObject = gameObject;
         _enemyAnimator = GetComponentInChildren<Animator>();
+    }
+
+    private void OnEnable()
+    {
         //case 1
         StartCoroutine(FindTarget());
         StartCoroutine(KillMe());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator KillMe()
@@ -78,7 +88,6 @@ public class EnemyController : MonoBehaviour
                     _currentTargetObject = gameObject;
                 }
             }
-
             yield return new WaitForSeconds(_findJewInterval);
         }
     }
