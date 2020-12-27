@@ -23,16 +23,21 @@ namespace Singletons
         [SerializeField] private int _playerScore;
         [SerializeField] private int _playerLives;
 
+        public int PlayerLives => _playerLives;
+
         public Bounds GameBounds => ObjectSpawner.Instance.GameBounds;
 
         void Start()
         {
-            _playerLives = UIController.Instance.GetHeartAmount();
-            _playerScore = UIController.Instance.GetScore();
+            Time.timeScale = 1;
+            _playerLives = 3;
+            _playerScore = 0;
             _jewsInGame = new List<JewController>();
             _enemiesInGame = new List<EnemyController>();
             
-            TestSpawn();
+            UIController.Instance.UpdateScoreUI(_playerScore);
+            
+            // TestSpawn();
             StartCoroutine(SpawnJews());
             StartCoroutine(SpawnEnemies());
         }
@@ -131,18 +136,10 @@ namespace Singletons
 
         public void KillJew(GameObject jew)
         {
-            _playerLives = UIController.Instance.GetHeartAmount();
-            _playerScore = UIController.Instance.GetScore();
-
             Debug.Log("Killing Jew");
             var jewController = _jewsInGame.Find((item) => item.gameObject == jew);
             _jewsInGame.Remove(jewController);
             ObjectSpawner.Instance.RemoveObject(jewController);
-
-            if (_playerLives <= 0)
-            {
-                UIController.Instance.SwitchToEndGameUI();
-            }
         }
 
         public void KillEnemy(GameObject enemy)
@@ -155,7 +152,24 @@ namespace Singletons
 
         public void AddScore()
         {
-            UIController.Instance.AddScore(1);
+            _playerScore += 1;
+            UIController.Instance.UpdateScoreUI(_playerScore);
+        }
+
+        private void EndGame()
+        {
+            UIController.Instance.SwitchToEndGameUI();
+            Time.timeScale = 0;
+        }
+
+        public void LoseLife()
+        {
+            _playerLives--;
+            UIController.Instance.LoseLife();
+            if (_playerLives <= 0)
+            {
+                EndGame();
+            }
         }
     }
 }

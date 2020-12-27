@@ -146,6 +146,7 @@ public class EnemyController : MonoBehaviour
 
         if (success) // Destroy Jew if tainting uninterrupted
         {
+            GameManager.Instance.LoseLife();
             GameManager.Instance.KillJew(jew);
         }
     }

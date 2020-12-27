@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using DG.Tweening;
+using Singletons;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,14 +17,14 @@ public class UIController : Singleton<UIController>
     [SerializeField] private GameObject gameSceneUI;
     [SerializeField] private GameObject endGameUI;
     private const int TOTAL_NUN_HEARTS = 3;
-    private int _currLife = TOTAL_NUN_HEARTS;
+    private int _currHeartIndex;
     private int _currScore = 0;
     private Tweener _tween;
     private TextMeshProUGUI _score;
 
     private void Start()
     {
-        AddScore(0);
+        _currHeartIndex = GameManager.Instance.PlayerLives - 1;
         playerLife = new Image[]{};
         LoadGameSceneUIObjects();
         SceneManager.activeSceneChanged += ((arg0, scene) =>  LoadGameSceneUIObjects());
@@ -31,7 +32,7 @@ public class UIController : Singleton<UIController>
 
     public int GetHeartAmount()
     {
-        return _currLife;
+        return _currHeartIndex;
     }
 
     public int GetScore()
@@ -62,24 +63,22 @@ public class UIController : Singleton<UIController>
 
     private IEnumerator LoseLifeCoroutine()
     {
-        
         if (_tween.IsActive())
         {
             yield return _tween.WaitForCompletion();    
         }
-        _currLife--;
-        if (_currLife >= 0)
+        if (_currHeartIndex >= 0)
         {
-            _tween = playerLife[_currLife].DOFillAmount(0, heartAnimationTime).SetEase(Ease.OutQuad);
+            _tween = playerLife[_currHeartIndex].DOFillAmount(0, heartAnimationTime).SetEase(Ease.OutQuad);
         }
+        _currHeartIndex--;
     }
 
-    public void AddScore(int scoreToAdd)
+    public void UpdateScoreUI(int score)
     {
-        _currScore += scoreToAdd;
         if (_score != null)
         {
-            _score.text = "Score: " + _currScore;
+            _score.text = "Score: " + score;
         }
     }
 
