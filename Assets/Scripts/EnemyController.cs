@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 using Singletons;
@@ -14,6 +15,7 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private bool _isTainting = false; // Enemy is in tainting state
     [SerializeField] private float _taintDuration; // Time it takes to taint a Jew
+    [SerializeField]private float _fadeDuration;
     private Tweener _fadeTweener;
 
     private Animator _enemyAnimator;
@@ -26,11 +28,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private JewController _taintedJew;
     [SerializeField] private GameObject _currentTargetObject;
 
+    private Material[] myMaterials;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
         _currentTargetObject = gameObject;
         _enemyAnimator = GetComponentInChildren<Animator>();
+        myMaterials = GetComponentsInChildren<MeshRenderer>().Select(meshRenderer => meshRenderer.material).ToArray();
     }
 
     private void OnEnable()
@@ -52,7 +59,16 @@ public class EnemyController : MonoBehaviour
         {
             _taintedJew.EnterFreeState();
         }
-        GameManager.Instance.KillEnemy(gameObject);
+
+        var seq = DOTween.Sequence();
+        foreach (var myMaterial in myMaterials)
+        {
+            seq.Join(myMaterial.DOFade(0, _fadeDuration));
+        }
+        seq.AppendCallback(() => GameManager.Instance.KillEnemy(gameObject));
+        seq.Play();
+        yield return seq.WaitForCompletion();
+        // GameManager.Instance.KillEnemy(gameObject);
     }
 
     // Update is called once per frame

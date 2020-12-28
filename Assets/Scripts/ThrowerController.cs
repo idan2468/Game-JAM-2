@@ -40,17 +40,8 @@ public class ThrowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Throw"))
-        {
-            EnterAimMode();
-        }
 
-        // Only move target if aiming
-        if (_isAiming)
-        {
-            HandleAimModePhysics();
-        }
-
+        HandleAimModePhysics();
         if (Input.GetButtonUp("Throw"))
         {
             Debug.Log("Throw");
@@ -84,39 +75,49 @@ public class ThrowerController : MonoBehaviour
 
     private void HandleAimModePhysics()
     {
-        // If direction is withing boundaries then switch A and D 
-        //var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
-        if (Input.GetButton("LeftAim"))
+        
+        if (Input.GetButtonDown("Throw"))
         {
-            //if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
-            //{
-            //    _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-            //}
-            //else
-            //{
-                _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-            //}
-        }
-        else if (Input.GetButton("RightAim"))
-        {
-            //if (degree >= -135f && degree <= -45f)
-            //{
-            //    _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-            //}
-            //else
-            //{
-                _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-            //}
+            EnterAimMode();
         }
 
-        if (Input.GetButton("Throw"))
+        // Only move target if aiming
+        if (_isAiming)
         {
-            if (!_caughtJew)
+            // If direction is withing boundaries then switch A and D 
+            //var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
+            if (Input.GetButton("LeftAim"))
             {
-                return;
+                //if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
+                //{
+                //    _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
+                //}
+                //else
+                //{
+                _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
+                //}
+            }
+            else if (Input.GetButton("RightAim"))
+            {
+                //if (degree >= -135f && degree <= -45f)
+                //{
+                //    _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
+                //}
+                //else
+                //{
+                _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
+                //}
             }
 
-            _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
+            if (Input.GetButton("Throw"))
+            {
+                if (!_caughtJew)
+                {
+                    return;
+                }
+
+                _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
+            }
         }
     }
 

@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8771166627424403242, guid: b1409f14145ec8a47b198b0d17bde0a7, type: 3}
+  - {fileID: 2100000, guid: 41be80021d6289b4cbe59728912d6904, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -260,6 +260,7 @@ MonoBehaviour:
   _rotationSpeed: 2
   _isTainting: 0
   _taintDuration: 5
+  _fadeDuration: 5
   _isUsingAnimator: 1
   tainBar: {fileID: 2592640153428926058}
   lifeTime: 40
@@ -452,7 +453,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2310514774154243031, guid: 62459361ec29ce942964077d9925028c, type: 3}
+  - {fileID: 2100000, guid: 41be80021d6289b4cbe59728912d6904, type: 2}
   - {fileID: -8771166627424403242, guid: 62459361ec29ce942964077d9925028c, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -534,7 +535,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8771166627424403242, guid: b1409f14145ec8a47b198b0d17bde0a7, type: 3}
+  - {fileID: 2100000, guid: 41be80021d6289b4cbe59728912d6904, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
