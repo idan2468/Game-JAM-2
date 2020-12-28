@@ -512,7 +512,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: d7e089982fd308a49806fb449d782d06, type: 3}
+  - {fileID: 2100000, guid: 54e57224d5b5cb842bbc5b16c8ddc276, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -669,7 +669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d500595da4d07d544a3dfa37e30b227b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myObjectSpawner: {fileID: 0}
   _movementBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}

@@ -133,7 +133,6 @@ public class JewController : MonoBehaviour
         SetChase(null);
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Thrown);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("Synagogue"))

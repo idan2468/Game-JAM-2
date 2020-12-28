@@ -40,7 +40,7 @@ public class ThrowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Throw"))
         {
             EnterAimMode();
         }
@@ -51,10 +51,10 @@ public class ThrowerController : MonoBehaviour
             HandleAimModePhysics();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetButtonUp("Throw"))
         {
-            Debug.Log("Fire");
-            if (_currThrowingObj == null)
+            Debug.Log("Throw");
+            if (!_caughtJew)
             {
                 return;
             }
@@ -86,7 +86,7 @@ public class ThrowerController : MonoBehaviour
     {
         // If direction is withing boundaries then switch A and D 
         //var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetButton("LeftAim"))
         {
             //if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
             //{
@@ -97,7 +97,7 @@ public class ThrowerController : MonoBehaviour
                 _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
             //}
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetButton("RightAim"))
         {
             //if (degree >= -135f && degree <= -45f)
             //{
@@ -109,9 +109,9 @@ public class ThrowerController : MonoBehaviour
             //}
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetButton("Throw"))
         {
-            if (_currThrowingObj == null)
+            if (!_caughtJew)
             {
                 return;
             }
@@ -124,7 +124,7 @@ public class ThrowerController : MonoBehaviour
     private void EnterAimMode()
     {
         // Decouple _target, save directions if only started aiming
-        if (_currThrowingObj == null)
+        if (!_caughtJew)
         {
             Debug.LogWarning("No Object to throw");
             return;
