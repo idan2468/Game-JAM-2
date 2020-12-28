@@ -103,8 +103,8 @@ public class EnemyController : MonoBehaviour
                 // Found Jew
                 if (closestJewController != null)
                 {
-                    // Already chasing this Jew
-                    if (closestJewController.GetChase() == gameObject)
+                    // Already chasing Jew
+                    if (_currentTargetObject.gameObject.tag.Equals("Jew"))
                     {
                         yield return new WaitForSeconds(_findJewInterval);
                     }
@@ -118,8 +118,8 @@ public class EnemyController : MonoBehaviour
                             _currentTargetObjectController.SetChase(null);
                         }
 
-                        closestJewController.SetChase(gameObject);
                         _currentTargetObject = closestJewController.gameObject;
+                        closestJewController.SetChase(gameObject);
                         _currentTargetObjectController = closestJewController;
                     }
                 }
