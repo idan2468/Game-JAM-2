@@ -19,13 +19,13 @@ public class MusicController : Singleton<MusicController>
 
     private Dictionary<SoundEffects, AudioClip> sounds;
     private const string FileExt = "";
-    private readonly float backgroundVolume = .5f;
-    private float effectsVolume = .5f;
+    private readonly float backgroundVolume = .05f;
+    private float effectsVolume = .25f;
     [SerializeField] private float cricketsVolume = .2f;
     private AudioSource BGMaudioSource;
     private AudioSource cricketsAudioSource;
     private AudioSource SFXAudioSource;
-    
+
 
     // Start is called before the first frame update
     protected override void Awake()
@@ -52,7 +52,7 @@ public class MusicController : Singleton<MusicController>
             sounds[sound] = audioClip;
         }
     }
-    
+
     public void PlaySound(SoundEffects soundEffects, float volume = 1)
     {
         var soundToPlay = sounds[soundEffects];
@@ -69,9 +69,8 @@ public class MusicController : Singleton<MusicController>
         {
             Debug.LogWarning("The sound " + soundName + " was not found!");
         }
-
     }
-    
+
     public void PlaySound(string soundName)
     {
         if (Enum.TryParse(soundName, true, out SoundEffects sound))
@@ -82,7 +81,6 @@ public class MusicController : Singleton<MusicController>
         {
             Debug.LogWarning("The sound " + soundName + " was not found!");
         }
-
     }
 
     public void PlayGameBGM()
@@ -107,12 +105,12 @@ public class MusicController : Singleton<MusicController>
     {
         BGMaudioSource.volume = slider.value;
     }
-    
+
     public void SetSFXVolume(Slider slider)
     {
         SFXAudioSource.volume = slider.value;
     }
-    
+
     public float GetSFXVolume()
     {
         return SFXAudioSource.volume;
@@ -122,5 +120,4 @@ public class MusicController : Singleton<MusicController>
     {
         return BGMaudioSource.volume;
     }
-    
 }

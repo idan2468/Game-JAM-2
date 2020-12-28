@@ -10,7 +10,7 @@ public class PathFollow : MonoBehaviour
     public EndOfPathInstruction endOfPathInstruction;
     public float speed = 10;
     float distanceTravelled;
-    
+
     void Start()
     {
         endOfPathInstruction = EndOfPathInstruction.Stop;

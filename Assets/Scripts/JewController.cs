@@ -15,6 +15,7 @@ public class JewController : MonoBehaviour
 
     private Animator _jewAnimator;
     [SerializeField] private bool _isUsingAnimator = false;
+
     public enum State
     {
         Free = 0,
@@ -22,6 +23,7 @@ public class JewController : MonoBehaviour
         CaughtByGolem = 2,
         Thrown = 3
     };
+
     [SerializeField] private State _currentState = State.Free;
     [SerializeField] private GameObject _chasingEnemy; // Currently chased by this enemy
 
@@ -45,7 +47,7 @@ public class JewController : MonoBehaviour
             PlayerMove();
         }
     }
-    
+
     private void PlayerMove()
     {
         var angleToTarget = Vector3.Angle(transform.forward, (_currentTargetPosition - transform.position).normalized);
@@ -56,7 +58,8 @@ public class JewController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition, _movementSpeed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _currentTargetPosition,
+            _movementSpeed * Time.fixedDeltaTime);
         if (Vector3.Distance(transform.position, _currentTargetPosition) < 0.05f)
         {
             _currentTargetPosition = GameManager.Instance.RandomPointInBounds(_movementBounds);
@@ -97,7 +100,7 @@ public class JewController : MonoBehaviour
     {
         _currentState = State.Free;
         SetChase(null);
-        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int)State.Free);
+        if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Free);
     }
 
     public void EnterTaintState(GameObject enemy)
@@ -124,6 +127,7 @@ public class JewController : MonoBehaviour
         SetChase(null);
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Thrown);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("Synagogue"))

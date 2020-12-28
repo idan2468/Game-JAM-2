@@ -97,11 +97,6 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
 
     public JewController SpawnJew()
     {
@@ -115,7 +110,7 @@ public class ObjectSpawner : MonoBehaviour
         SpawnObject(jewController.gameObject, jewsInGameContainer);
         return jewController;
     }
-    
+
     public EnemyController SpawnEnemy()
     {
         if (_enemiesPool.Count == 0)
@@ -123,6 +118,7 @@ public class ObjectSpawner : MonoBehaviour
             Debug.LogWarning("No enemies in the pool");
             return null;
         }
+
         var enemyController = _enemiesPool.Dequeue();
         SpawnObject(enemyController.gameObject, enemiesInGameContainer);
         return enemyController;
@@ -136,6 +132,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             pos = GameManager.Instance.RandomPointInBounds(spawnBounds);
         }
+
         obj.transform.position = pos;
         obj.transform.SetParent(inGameContainer);
         obj.SetActive(true);
@@ -147,6 +144,7 @@ public class ObjectSpawner : MonoBehaviour
         jew.transform.SetParent(jewsPoolContainer);
         _jewsPool.Enqueue(jew);
     }
+
     public void RemoveObject(EnemyController enemy)
     {
         enemy.gameObject.SetActive(false);

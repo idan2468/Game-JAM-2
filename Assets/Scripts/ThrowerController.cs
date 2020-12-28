@@ -5,8 +5,6 @@ using PathCreation;
 
 public class ThrowerController : MonoBehaviour
 {
-    [SerializeField] private bool littleBabyBitchBoyControls;
-
     [SerializeField] private float height = 5f;
     [SerializeField] private float throwForce = 2f;
     [SerializeField] private Transform startLocalTransformThrowingObj;
@@ -92,7 +90,7 @@ public class ThrowerController : MonoBehaviour
 
         if (Input.GetButton("LeftAim"))
         {
-            if (littleBabyBitchBoyControls && degree >= 45f && degree <= 225f)
+            if (degree >= 45f && degree <= 225f)
             {
                 _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
             }
@@ -103,7 +101,7 @@ public class ThrowerController : MonoBehaviour
         }
         else if (Input.GetButton("RightAim"))
         {
-            if (littleBabyBitchBoyControls && degree >= 45f && degree <= 225f)
+            if (degree >= 45f && degree <= 225f)
             {
                 _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
             }

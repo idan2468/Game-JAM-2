@@ -8,20 +8,21 @@ namespace Singletons
 {
     public class GameManager : Singleton<GameManager>
     {
-        [Header("Spawn Timing")]
-        [SerializeField] private float spawnJewMinTime;
-        [SerializeField]  private float spawnJewMaxTime;
+        [Header("Spawn Timing")] [SerializeField]
+        private float spawnJewMinTime;
+
+        [SerializeField] private float spawnJewMaxTime;
         [SerializeField] private float spawnEnemyMinTime;
-        [SerializeField]  private float spawnEnemyMaxTime;
-        
-        [Header("Objects in game")] 
-        [SerializeField] private List<JewController> _jewsInGame;
+        [SerializeField] private float spawnEnemyMaxTime;
+
+        [Header("Objects in game")] [SerializeField]
+        private List<JewController> _jewsInGame;
+
         [SerializeField] private List<EnemyController> _enemiesInGame;
         [SerializeField] private ThrowerController _throwerController;
         [SerializeField] private float spawnOffset = 5f;
 
-        [Header("Points")]
-        [SerializeField] private int _playerScore;
+        [Header("Points")] [SerializeField] private int _playerScore;
         [SerializeField] private int _playerLives;
 
         public int PlayerLives => _playerLives;
@@ -38,42 +39,17 @@ namespace Singletons
             while (true)
             {
                 SpawnJew();
-                yield return new WaitForSeconds(Random.Range(spawnJewMinTime,spawnJewMaxTime));
+                yield return new WaitForSeconds(Random.Range(spawnJewMinTime, spawnJewMaxTime));
             }
         }
-        
+
         private IEnumerator SpawnEnemies()
         {
             while (true)
             {
                 SpawnEnemy();
-                yield return new WaitForSeconds(Random.Range(spawnEnemyMinTime,spawnEnemyMaxTime));
+                yield return new WaitForSeconds(Random.Range(spawnEnemyMinTime, spawnEnemyMaxTime));
             }
-        }
-
-        private void TestSpawn()
-        {
-            var seq = DOTween.Sequence();
-            // var numOfObjects = 10;
-            // for (int i = 0; i < numOfObjects; i++)
-            // {
-            //     if (Random.Range(0, 2) == 0)
-            //     {
-            //         seq.AppendCallback(SpawnJew);
-            //     }
-            //     else
-            //     {
-            //         seq.AppendCallback(SpawnEnemy);
-            //     }
-            //
-            //     seq.AppendInterval(1);
-            // }
-            // for (int _ = 0; _ < 3; ++_)
-            // {
-            //     seq.AppendCallback(SpawnJew);
-            // }
-            seq.AppendCallback(SpawnEnemy);
-            seq.Play();
         }
 
         public Vector3 RandomPointInBounds(Bounds bounds)
@@ -85,8 +61,8 @@ namespace Singletons
                 ObjectSpawner.Instance.GameBounds.max.x - spawnOffset);
             y = Mathf.Clamp(y, ObjectSpawner.Instance.GameBounds.min.y,
                 ObjectSpawner.Instance.GameBounds.max.y);
-            z = Mathf.Clamp(z, ObjectSpawner.Instance.GameBounds.min.x+spawnOffset,
-                ObjectSpawner.Instance.GameBounds.max.x-spawnOffset);
+            z = Mathf.Clamp(z, ObjectSpawner.Instance.GameBounds.min.x + spawnOffset,
+                ObjectSpawner.Instance.GameBounds.max.x - spawnOffset);
             return new Vector3(x, y, z);
         }
 
@@ -101,6 +77,7 @@ namespace Singletons
                 {
                     continue;
                 }
+
                 var currDist = Vector3.Distance(pos, jew.transform.position);
                 if (currDist < bestDist)
                 {
@@ -150,6 +127,7 @@ namespace Singletons
         private void EndGame()
         {
             UIController.Instance.SwitchToEndGameUI();
+            UIController.Instance.SetEndGameScore(_playerScore);
         }
 
         public void LoseLife()
@@ -169,7 +147,7 @@ namespace Singletons
             _enemiesInGame = new List<EnemyController>();
             _throwerController = FindObjectOfType<ThrowerController>();
             UIController.Instance.UpdateScoreUI(_playerScore);
-            
+
             // TestSpawn();
             StartCoroutine(SpawnJews());
             StartCoroutine(SpawnEnemies());

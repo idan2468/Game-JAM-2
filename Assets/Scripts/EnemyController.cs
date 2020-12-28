@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private bool _isTainting = false; // Enemy is in tainting state
     [SerializeField] private float _taintDuration; // Time it takes to taint a Jew
-    [SerializeField]private float _fadeDuration;
+    [SerializeField] private float _fadeDuration;
 
     private Animator _enemyAnimator;
     [SerializeField] private bool _isUsingAnimator = false;
@@ -29,7 +29,6 @@ public class EnemyController : MonoBehaviour
 
     private Material[] myMaterials;
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +40,6 @@ public class EnemyController : MonoBehaviour
 
     private void OnEnable()
     {
-        //case 1
         StartCoroutine(FindTarget());
         StartCoroutine(KillMe());
     }
@@ -64,10 +62,10 @@ public class EnemyController : MonoBehaviour
         {
             seq.Join(myMaterial.DOFade(0, _fadeDuration));
         }
+
         seq.AppendCallback(() => GameManager.Instance.KillEnemy(gameObject));
         seq.Play();
         yield return seq.WaitForCompletion();
-        // GameManager.Instance.KillEnemy(gameObject);
     }
 
     // Update is called once per frame
@@ -87,18 +85,6 @@ public class EnemyController : MonoBehaviour
             if (!_isTainting)
             {
                 var closestJewController = GameManager.Instance.GetClosestFreeJew(transform.position);
-
-                //if (closestJewController != null && (closestJewController.GetChase() == null || closestJewController.GetChase() == gameObject))
-                //{
-                //    if (_currentTargetObject.tag.Equals("Jew") && _currentTargetObject != closestJewController.gameObject)
-                //    {
-                //        _currentTargetObjectController.SetChase(null);
-                //    }
-
-                //    closestJewController.SetChase(gameObject);
-                //    _currentTargetObject = closestJewController.gameObject;
-                //    _currentTargetObjectController = closestJewController;
-                //}
 
                 // Found Jew
                 if (closestJewController != null)
@@ -128,6 +114,7 @@ public class EnemyController : MonoBehaviour
                     _currentTargetObject = gameObject;
                 }
             }
+
             yield return new WaitForSeconds(_findJewInterval);
         }
     }
@@ -135,7 +122,8 @@ public class EnemyController : MonoBehaviour
     // Move enemy in direction of _currentTargetPosition
     private void EnemyMove()
     {
-        var angleToTarget = Vector3.Angle(transform.forward, _currentTargetObject.transform.position - transform.position);
+        var angleToTarget =
+            Vector3.Angle(transform.forward, _currentTargetObject.transform.position - transform.position);
         if (angleToTarget > 0)
         {
             var normDirection = (_currentTargetObject.transform.position - transform.position).normalized;
@@ -144,7 +132,8 @@ public class EnemyController : MonoBehaviour
         }
 
         transform.position =
-            Vector3.MoveTowards(transform.position, _currentTargetObject.transform.position, _movementSpeed * Time.deltaTime);
+            Vector3.MoveTowards(transform.position, _currentTargetObject.transform.position,
+                _movementSpeed * Time.deltaTime);
     }
 
     private Sequence GetSequenceForTaintBar()
@@ -177,7 +166,7 @@ public class EnemyController : MonoBehaviour
                     seq.Kill();
                     success = false;
                 }
-            }   
+            }
         });
         yield return seq.WaitForCompletion();
         StopTainting(jew, success);

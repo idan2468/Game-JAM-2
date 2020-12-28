@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : Singleton<SceneLoader>
 {
     private static Transform m_DestroyOnLoadGO;
+
     private void Start()
     {
         MusicController.Instance.PlayMenuBGM();
@@ -17,12 +18,12 @@ public class SceneLoader : Singleton<SceneLoader>
         StartScene,
         GameScene,
     };
-    
+
     public void MoveToScene(Scene scene)
     {
-        MoveToScene(Enum.GetName(typeof(Scene),scene));
+        MoveToScene(Enum.GetName(typeof(Scene), scene));
     }
-    
+
     public static void DestroyOnLoad(GameObject aGO)
     {
         if (m_DestroyOnLoadGO == null)
@@ -42,6 +43,7 @@ public class SceneLoader : Singleton<SceneLoader>
                 ResetGameSceneObjects();
                 break;
         }
+
         DOTween.KillAll();
         SceneManager.LoadScene(sceneName);
     }
@@ -58,6 +60,7 @@ public class SceneLoader : Singleton<SceneLoader>
         {
             DestroyOnLoad(gameManager.gameObject);
         }
+
         if (uiController == null)
         {
             Debug.LogWarning("UIController not found in scene");
@@ -67,6 +70,7 @@ public class SceneLoader : Singleton<SceneLoader>
             DestroyOnLoad(uiController.gameObject);
         }
     }
+
     public void ExitGame()
     {
         Application.Quit();

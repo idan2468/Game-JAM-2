@@ -11,10 +11,9 @@ using UnityEngine.UI;
 
 public class UIController : Singleton<UIController>
 {
-    [SerializeField] private  float heartAnimationTime = 2f;
+    [SerializeField] private float heartAnimationTime = 2f;
     [SerializeField] private Image[] playerLife;
-    [Header("UI Canvas")] 
-    [SerializeField] private GameObject gameSceneUI;
+    [Header("UI Canvas")] [SerializeField] private GameObject gameSceneUI;
     [SerializeField] private GameObject endGameUI;
     private const int TOTAL_NUN_HEARTS = 6;
     private int _currHeartIndex;
@@ -40,20 +39,15 @@ public class UIController : Singleton<UIController>
 
     private void LoadGameSceneUIObjects()
     {
-        //if (SceneLoader.Instance.GetActiveScene() == SceneLoader.Scene.GameScene && playerLife.Length == 0)
-        //{
-        //    playerLife = GameObject.FindGameObjectsWithTag("Heart").Select(go => go.GetComponent<Image>())
-        //        .ToArray();
-        //}
         playerLife = GameObject.FindGameObjectsWithTag("Heart").Select(go => go.GetComponent<Image>())
-                .ToArray();
+            .ToArray();
 
         if (_score == null)
         {
             _score = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
         }
 
-        for (int i = _currHeartIndex+1; i < playerLife.Length; i++)
+        for (int i = _currHeartIndex + 1; i < playerLife.Length; i++)
         {
             var heartGameObject = playerLife[i].gameObject.transform.parent.gameObject;
             heartGameObject.SetActive(false);
@@ -69,12 +63,14 @@ public class UIController : Singleton<UIController>
     {
         if (_tween.IsActive())
         {
-            yield return _tween.WaitForCompletion();    
+            yield return _tween.WaitForCompletion();
         }
+
         if (_currHeartIndex >= 0)
         {
             _tween = playerLife[_currHeartIndex].DOFillAmount(0, heartAnimationTime).SetEase(Ease.OutQuad);
         }
+
         _currHeartIndex--;
     }
 
@@ -95,7 +91,13 @@ public class UIController : Singleton<UIController>
     public void ResetUIController()
     {
         _currHeartIndex = GameManager.Instance.PlayerLives - 1;
-        playerLife = new Image[]{};
+        playerLife = new Image[] { };
         LoadGameSceneUIObjects();
+    }
+
+    public void SetEndGameScore(int playerScore)
+    {
+        var score = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
+        score.text = "Score: " + playerScore;
     }
 }

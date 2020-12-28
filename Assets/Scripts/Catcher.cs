@@ -14,13 +14,9 @@ public class Catcher : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-    }
-    //#todo Check if the golem is empty handed before adding the obj (here or just in addObjToThrow
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Jew") && _throwerAPI.CanCatchJew)
+        if (other.CompareTag("Jew") && _throwerAPI.CanCatchJew)
         {
             _throwerAPI.AddObjToThrow(other.gameObject);
             other.gameObject.GetComponent<JewController>().EnterGolemState();

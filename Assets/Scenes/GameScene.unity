@@ -384,6 +384,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6547686436414969809, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
 --- !u!4 &214551595 stripped
@@ -5029,6 +5033,10 @@ PrefabInstance:
     - target: {fileID: 6547686436396060337, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
       propertyPath: m_Name
       value: Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547686436414969809, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
