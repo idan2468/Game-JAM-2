@@ -19,7 +19,7 @@ public class MusicController : Singleton<MusicController>
 
     private Dictionary<SoundEffects, AudioClip> sounds;
     private const string FileExt = "";
-    private readonly float backgroundVolume = .05f;
+    private float backgroundVolume = .05f;
     private float effectsVolume = .25f;
     [SerializeField] private float cricketsVolume = .2f;
     private AudioSource BGMaudioSource;
@@ -30,6 +30,8 @@ public class MusicController : Singleton<MusicController>
     // Start is called before the first frame update
     protected override void Awake()
     {
+        effectsVolume = .25f;
+        backgroundVolume = .05f;
         BGMaudioSource = gameObject.AddComponent<AudioSource>();
         SFXAudioSource = gameObject.AddComponent<AudioSource>();
         cricketsAudioSource = gameObject.AddComponent<AudioSource>();

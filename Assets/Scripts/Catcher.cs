@@ -16,10 +16,15 @@ public class Catcher : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("Jew") && _throwerAPI.CanCatchJew)
         {
-            _throwerAPI.AddObjToThrow(other.gameObject);
-            other.gameObject.GetComponent<JewController>().EnterGolemState();
+            var jewController = other.gameObject.GetComponent<JewController>();
+            if(jewController.CurrentState == JewController.State.Free || jewController.CurrentState == JewController.State.CaughtByEnemy)
+            {
+                _throwerAPI.AddObjToThrow(other.gameObject);
+                other.gameObject.GetComponent<JewController>().EnterGolemState();
+            }
         }
     }
 }

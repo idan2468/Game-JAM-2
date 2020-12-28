@@ -133,7 +133,7 @@ public class JewController : MonoBehaviour
         if (other.tag.Equals("Synagogue"))
         {
             // Score
-            MusicController.Instance.PlaySound(MusicController.SoundEffects.Score);
+            MusicController.Instance.PlaySound(MusicController.SoundEffects.Score,.1f);
             GameManager.Instance.AddScore();
             gameObject.GetComponent<PathFollow>().KillPathObject();
 
@@ -146,8 +146,14 @@ public class JewController : MonoBehaviour
         if (other.tag.Equals("Floor") && _currentState == State.Thrown)
         {
             MusicController.Instance.PlaySound(MusicController.SoundEffects.Hit);
-            EnterFreeState();
+            StartCoroutine(ReturnToFreeState());
         }
+    }
+
+    private IEnumerator ReturnToFreeState()
+    {
+        yield return new WaitForSeconds(1f);
+        EnterFreeState();
     }
 
     private void OnDrawGizmos()
