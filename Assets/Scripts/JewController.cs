@@ -138,6 +138,7 @@ public class JewController : MonoBehaviour
         if (other.tag.Equals("Synagogue"))
         {
             // TODO: SCORE
+            MusicController.Instance.PlaySound(MusicController.SoundEffects.Score);
             GameManager.Instance.AddScore();
             gameObject.GetComponent<PathFollow>().KillPathObject();
             // Back to object pool
@@ -147,6 +148,7 @@ public class JewController : MonoBehaviour
         // Hit floor after missed throw
         if (other.tag.Equals("Floor") && _currentState == State.Thrown)
         {
+            MusicController.Instance.PlaySound(MusicController.SoundEffects.Hit);
             EnterFreeState();
         }
     }

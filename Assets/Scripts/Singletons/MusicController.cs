@@ -11,18 +11,19 @@ public class MusicController : Singleton<MusicController>
         MainMenu,
         BGM,
         Hit,
-        Walk,
-        Jump,
-        Click, 
-        Hover,
-        Victory,
+        Crickets,
+        Click,
+        EndGame,
+        Score
     }
 
     private Dictionary<SoundEffects, AudioClip> sounds;
     private const string FileExt = "";
     private readonly float backgroundVolume = .5f;
     private float effectsVolume = .5f;
+    [SerializeField] private float cricketsVolume = .2f;
     private AudioSource BGMaudioSource;
+    private AudioSource cricketsAudioSource;
     private AudioSource SFXAudioSource;
     
 
@@ -31,10 +32,14 @@ public class MusicController : Singleton<MusicController>
     {
         BGMaudioSource = gameObject.AddComponent<AudioSource>();
         SFXAudioSource = gameObject.AddComponent<AudioSource>();
+        cricketsAudioSource = gameObject.AddComponent<AudioSource>();
         BGMaudioSource.loop = true;
+        cricketsAudioSource.loop = true;
         BGMaudioSource.volume = backgroundVolume;
         SFXAudioSource.volume = effectsVolume;
-        
+        cricketsAudioSource.volume = cricketsVolume;
+
+
         sounds = new Dictionary<SoundEffects, AudioClip>();
         LoadSoundClips();
         base.Awake();
@@ -72,15 +77,17 @@ public class MusicController : Singleton<MusicController>
     public void PlayGameBGM()
     {
         var toPlay = sounds[SoundEffects.BGM];
-        if (BGMaudioSource.clip == toPlay) return;
+        if (BGMaudioSource.clip != null && BGMaudioSource.clip == toPlay) return;
         BGMaudioSource.clip = toPlay;
+        cricketsAudioSource.clip = sounds[SoundEffects.Crickets];
         BGMaudioSource.Play();
+        cricketsAudioSource.Play();
     }
 
     public void PlayMenuBGM()
     {
         var toPlay = sounds[SoundEffects.MainMenu];
-        if (BGMaudioSource.clip == toPlay) return;
+        if (BGMaudioSource.clip != null && BGMaudioSource.clip == toPlay) return;
         BGMaudioSource.clip = toPlay;
         BGMaudioSource.Play();
     }
