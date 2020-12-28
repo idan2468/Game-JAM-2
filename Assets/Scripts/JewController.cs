@@ -6,8 +6,6 @@ using Singletons;
 
 public class JewController : MonoBehaviour
 {
-    // public ObjectSpawner myObjectSpawner;
-
     private float _boundsExtent = 10f;
     [SerializeField] private Bounds _movementBounds;
 
@@ -46,7 +44,6 @@ public class JewController : MonoBehaviour
         {
             PlayerMove();
         }
-        //Debug.Log(_currentState);
     }
     
     private void PlayerMove()
@@ -70,13 +67,11 @@ public class JewController : MonoBehaviour
     {
         _movementBounds.center = center;
         _movementBounds.extents = extents;
-        // TODO: CLAMP BOUNDS TO FLOOR BOUNDS
     }
 
     // Sets values to default for object pool
     private void OnEnable()
     {
-        // TODO: COMPLETE
         InitializeJew();
     }
 
@@ -100,7 +95,6 @@ public class JewController : MonoBehaviour
 
     public void EnterFreeState()
     {
-        // TODO: COMPLETE 
         _currentState = State.Free;
         SetChase(null);
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int)State.Free);
@@ -108,7 +102,6 @@ public class JewController : MonoBehaviour
 
     public void EnterTaintState(GameObject enemy)
     {
-        // TODO: COMPLETE 
         _currentState = State.CaughtByEnemy;
 
         // Turn Jew to face enemy
@@ -121,14 +114,12 @@ public class JewController : MonoBehaviour
 
     public void EnterGolemState()
     {
-        // TODO: COMPLETE 
         _currentState = State.CaughtByGolem;
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.CaughtByGolem);
     }
 
     public void EnterThrownState()
     {
-        // TODO: COMPLETE 
         _currentState = State.Thrown;
         SetChase(null);
         if (_isUsingAnimator) _jewAnimator.SetInteger("State", (int) State.Thrown);
@@ -137,10 +128,11 @@ public class JewController : MonoBehaviour
     {
         if (other.tag.Equals("Synagogue"))
         {
-            // TODO: SCORE
+            // Score
             MusicController.Instance.PlaySound(MusicController.SoundEffects.Score);
             GameManager.Instance.AddScore();
             gameObject.GetComponent<PathFollow>().KillPathObject();
+
             // Back to object pool
             GameManager.Instance.KillJew(gameObject);
         }

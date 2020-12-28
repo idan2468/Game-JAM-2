@@ -78,7 +78,6 @@ namespace Singletons
 
         public Vector3 RandomPointInBounds(Bounds bounds)
         {
-            // TODO: PLAY WITH OFFSET
             var x = Random.Range(bounds.min.x, bounds.max.x);
             var y = Random.Range(bounds.min.y, bounds.max.y);
             var z = Random.Range(bounds.min.z, bounds.max.z);
@@ -91,7 +90,7 @@ namespace Singletons
             return new Vector3(x, y, z);
         }
 
-        public GameObject GetClosestFreeJew(Vector3 pos)
+        public JewController GetClosestFreeJew(Vector3 pos)
         {
             var bestDist = float.PositiveInfinity;
             JewController closestJew = null;
@@ -110,7 +109,12 @@ namespace Singletons
                     foundJew = true;
                 }
             }
+<<<<<<< Updated upstream
             return foundJew ? closestJew.gameObject : null;
+=======
+
+            return foundJew ? closestJew : null;
+>>>>>>> Stashed changes
         }
 
         public void SpawnJew()

@@ -23,7 +23,7 @@ public class ThrowerController : MonoBehaviour
     private Vector3 _targetOriginalLeft;
     private Vector3 _targetOriginalRight;
     private bool _isAiming; // currently aiming _target
-    [SerializeField] private float _boundaryDegree = 45f;
+    //[SerializeField] private float _boundaryDegree = 45f; NOT BEING USED
 
     [SerializeField] private Animator _parentAnimator;
     public bool CanCatchJew => _currThrowingObj == null;

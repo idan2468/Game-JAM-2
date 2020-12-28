@@ -52,7 +52,7 @@ public class SceneLoader : Singleton<SceneLoader>
         var uiController = FindObjectOfType<UIController>();
         if (gameManager == null)
         {
-            Debug.LogWarning("Game manger not found in scene");
+            Debug.LogWarning("Game manager not found in scene");
         }
         else
         {

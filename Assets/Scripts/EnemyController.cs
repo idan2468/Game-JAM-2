@@ -9,14 +9,12 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    //[SerializeField] private Vector3 _currentTargetPosition;
     [SerializeField] private float _movementSpeed = 2f;
     [SerializeField] private float _rotationSpeed = 2f;
 
     [SerializeField] private bool _isTainting = false; // Enemy is in tainting state
     [SerializeField] private float _taintDuration; // Time it takes to taint a Jew
     [SerializeField]private float _fadeDuration;
-    private Tweener _fadeTweener;
 
     private Animator _enemyAnimator;
     [SerializeField] private bool _isUsingAnimator = false;
@@ -27,6 +25,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float lifeTime;
     [SerializeField] private JewController _taintedJew;
     [SerializeField] private GameObject _currentTargetObject;
+    private JewController _currentTargetObjectController;
 
     private Material[] myMaterials;
 
@@ -87,17 +86,18 @@ public class EnemyController : MonoBehaviour
         {
             if (!_isTainting)
             {
-                var closestJew = GameManager.Instance.GetClosestFreeJew(transform.position);
-                if (closestJew != null && (closestJew.GetComponent<JewController>().GetChase() == null ||
-                    closestJew.GetComponent<JewController>().GetChase() == gameObject))
+                var closestJewController = GameManager.Instance.GetClosestFreeJew(transform.position);
+                //var closestJewController = closestJew == null ? null : closestJew.GetComponent<JewController>();
+                if (closestJewController != null && (closestJewController.GetChase() == null || closestJewController.GetChase() == gameObject))
                 {
-                    if (_currentTargetObject.tag.Equals("Jew") && _currentTargetObject != closestJew)
+                    if (_currentTargetObject.tag.Equals("Jew") && _currentTargetObject != closestJewController.gameObject)
                     {
-                        _currentTargetObject.GetComponent<JewController>().SetChase(null);
+                        _currentTargetObjectController.SetChase(null);
                     }
 
-                    closestJew.GetComponent<JewController>().SetChase(gameObject);
-                    _currentTargetObject = closestJew;
+                    closestJewController.SetChase(gameObject);
+                    _currentTargetObject = closestJewController.gameObject;
+                    _currentTargetObjectController = closestJewController;
                 }
                 else
                 {
