@@ -43,13 +43,13 @@ namespace Singletons
         }
         
         private IEnumerator SpawnEnemies()
-                {
-                    while (true)
-                    {
-                        SpawnEnemy();
-                        yield return new WaitForSeconds(Random.Range(spawnEnemyMinTime,spawnEnemyMaxTime));
-                    }
-                }
+        {
+            while (true)
+            {
+                SpawnEnemy();
+                yield return new WaitForSeconds(Random.Range(spawnEnemyMinTime,spawnEnemyMaxTime));
+            }
+        }
 
         private void TestSpawn()
         {

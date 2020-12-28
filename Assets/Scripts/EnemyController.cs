@@ -87,19 +87,43 @@ public class EnemyController : MonoBehaviour
             if (!_isTainting)
             {
                 var closestJewController = GameManager.Instance.GetClosestFreeJew(transform.position);
-                //var closestJewController = closestJew == null ? null : closestJew.GetComponent<JewController>();
-                if (closestJewController != null && (closestJewController.GetChase() == null || closestJewController.GetChase() == gameObject))
+
+                //if (closestJewController != null && (closestJewController.GetChase() == null || closestJewController.GetChase() == gameObject))
+                //{
+                //    if (_currentTargetObject.tag.Equals("Jew") && _currentTargetObject != closestJewController.gameObject)
+                //    {
+                //        _currentTargetObjectController.SetChase(null);
+                //    }
+
+                //    closestJewController.SetChase(gameObject);
+                //    _currentTargetObject = closestJewController.gameObject;
+                //    _currentTargetObjectController = closestJewController;
+                //}
+
+                // Found Jew
+                if (closestJewController != null)
                 {
-                    if (_currentTargetObject.tag.Equals("Jew") && _currentTargetObject != closestJewController.gameObject)
+                    // Already chasing this Jew
+                    if (closestJewController.GetChase() == gameObject)
                     {
-                        _currentTargetObjectController.SetChase(null);
+                        yield return new WaitForSeconds(_findJewInterval);
                     }
 
-                    closestJewController.SetChase(gameObject);
-                    _currentTargetObject = closestJewController.gameObject;
-                    _currentTargetObjectController = closestJewController;
+                    // Jew is not chased by anyone else
+                    if (closestJewController.GetChase() == null)
+                    {
+                        // Release previous Jew
+                        if (_currentTargetObject.tag.Equals("Jew"))
+                        {
+                            _currentTargetObjectController.SetChase(null);
+                        }
+
+                        closestJewController.SetChase(gameObject);
+                        _currentTargetObject = closestJewController.gameObject;
+                        _currentTargetObjectController = closestJewController;
+                    }
                 }
-                else
+                else // No Jew
                 {
                     _currentTargetObject = gameObject;
                 }
@@ -203,6 +227,8 @@ public class EnemyController : MonoBehaviour
         if (_isTainting)
         {
             //release jew 
+            _taintedJew.EnterFreeState();
+            _isTainting = false;
         }
     }
 }

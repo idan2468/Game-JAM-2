@@ -49,6 +49,7 @@ MonoBehaviour:
   spawnEnemyMaxTime: 60
   _jewsInGame: []
   _enemiesInGame: []
+  _throwerController: {fileID: 0}
   spawnOffset: 7
   _playerScore: 0
   _playerLives: 3

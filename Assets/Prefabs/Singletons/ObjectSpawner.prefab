@@ -110,8 +110,6 @@ MonoBehaviour:
   spawnBounds:
     m_Center: {x: -0.63, y: 0, z: 2.34}
     m_Extent: {x: 63, y: 0, z: 58}
-  _jewsInGame: []
-  _enemiesInGame: []
   maxJews: 20
   maxEnemies: 20
   minDistanceBetweenObjects: 15

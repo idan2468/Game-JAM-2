@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63dc96c92932ad44aba47d2f14a064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 4
+  _movementSpeed: 8
   _rotationSpeed: 2
   _isTainting: 0
   _taintDuration: 5

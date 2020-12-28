@@ -134,6 +134,7 @@ public class JewController : MonoBehaviour
             gameObject.GetComponent<PathFollow>().KillPathObject();
 
             // Back to object pool
+            EnterFreeState();
             GameManager.Instance.KillJew(gameObject);
         }
 

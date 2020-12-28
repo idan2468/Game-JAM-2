@@ -656,7 +656,7 @@ MonoBehaviour:
   pathCreator: {fileID: 0}
   pathObj: {fileID: 0}
   endOfPathInstruction: 0
-  speed: 20
+  speed: 50
 --- !u!114 &8053736591507810657
 MonoBehaviour:
   m_ObjectHideFlags: 0

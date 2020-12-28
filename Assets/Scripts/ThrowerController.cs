@@ -5,6 +5,8 @@ using PathCreation;
 
 public class ThrowerController : MonoBehaviour
 {
+    [SerializeField] private bool littleBabyBitchBoyControls;
+
     [SerializeField] private float height = 5f;
     [SerializeField] private float throwForce = 2f;
     [SerializeField] private Transform startLocalTransformThrowingObj;
@@ -85,28 +87,30 @@ public class ThrowerController : MonoBehaviour
     private void HandleAimModePhysics()
     {
         // If direction is withing boundaries then switch A and D 
-        //var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
+        var cameraForwardVector = new Vector3(Camera.main.transform.localEulerAngles.x, 0f, Camera.main.transform.localEulerAngles.z);
+        var degree = Vector3.SignedAngle(cameraForwardVector, _targetOriginalForward, Vector3.up);
+
         if (Input.GetButton("LeftAim"))
         {
-            //if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
-            //{
-            //    _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-            //}
-            //else
-            //{
+            if (littleBabyBitchBoyControls && degree >= 45f && degree <= 225f)
+            {
+                _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
+            }
+            else
+            {
                 _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-            //}
+            }
         }
         else if (Input.GetButton("RightAim"))
         {
-            //if (degree >= -135f && degree <= -45f)
-            //{
-            //    _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-            //}
-            //else
-            //{
+            if (littleBabyBitchBoyControls && degree >= 45f && degree <= 225f)
+            {
+                _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
+            }
+            else
+            {
                 _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-            //}
+            }
         }
 
         if (Input.GetButton("Throw"))
