@@ -38,8 +38,6 @@ public class MusicController : Singleton<MusicController>
         BGMaudioSource.volume = backgroundVolume;
         SFXAudioSource.volume = effectsVolume;
         cricketsAudioSource.volume = cricketsVolume;
-
-
         sounds = new Dictionary<SoundEffects, AudioClip>();
         LoadSoundClips();
         base.Awake();
@@ -66,6 +64,19 @@ public class MusicController : Singleton<MusicController>
         if (Enum.TryParse(soundName, true, out SoundEffects sound))
         {
             PlaySound(sound, volume);
+        }
+        else
+        {
+            Debug.LogWarning("The sound " + soundName + " was not found!");
+        }
+
+    }
+    
+    public void PlaySound(string soundName)
+    {
+        if (Enum.TryParse(soundName, true, out SoundEffects sound))
+        {
+            PlaySound(sound, 1f);
         }
         else
         {
