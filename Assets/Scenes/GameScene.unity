@@ -384,10 +384,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6547686436414969809, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
 --- !u!4 &214551595 stripped
@@ -4887,15 +4883,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6547686436395569809, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -58.59
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 6547686436395569809, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -27.07
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 6547686436395569809, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.92
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 6547686436395569809, guid: 56662d5d81cd209419ef8eb9280d7a4c, type: 3}
       propertyPath: m_LocalRotation.w
