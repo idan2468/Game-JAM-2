@@ -110,7 +110,6 @@ namespace Singletons
                     foundJew = true;
                 }
             }
-
             return foundJew ? closestJew.gameObject : null;
         }
 
@@ -137,6 +136,7 @@ namespace Singletons
         {
             Debug.Log("Killing Enemy");
             var enemyController = _enemiesInGame.Find((item) => item.gameObject == enemy);
+            enemyController.ReleaseJew();
             _enemiesInGame.Remove(enemyController);
             ObjectSpawner.Instance.RemoveObject(enemyController);
         }

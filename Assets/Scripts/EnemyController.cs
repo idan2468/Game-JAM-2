@@ -197,4 +197,12 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+    public void ReleaseJew()
+    {
+        if (_isTainting)
+        {
+            //release jew 
+        }
+    }
 }

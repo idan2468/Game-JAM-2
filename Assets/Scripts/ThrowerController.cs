@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 using PathCreation;
 
@@ -28,7 +27,6 @@ public class ThrowerController : MonoBehaviour
 
     [SerializeField] private Animator _parentAnimator;
     public bool CanCatchJew => _currThrowingObj == null;
-    [SerializeField] private bool useNewMoveMode = false;
 
     // Start is called before the first frame update
     void Start()
@@ -42,47 +40,28 @@ public class ThrowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!useNewMoveMode)
+        if (Input.GetButtonDown("Throw"))
         {
-            HandleAimMode();    
-        }
-        else
-        {
-            HandleAimModeNew();    
-        }
-    }
-
-    private void HandleAimModeNew()
-    {
-        if (Input.GetButtonDown("Throw") && !_isAiming)
-        {
-            EnterAimMode();    
-        }
-        
-        if (Input.GetButtonDown("UpAim"))
-        {
-            //todo handle up rotation according to forward
-        }
-        if (Input.GetButtonDown("DownAim"))
-        {
-            //todo handle down rotation according to forward
-        }        
-        if (Input.GetButtonDown("RightAim"))
-        {
-            //todo handle right rotation according to forward
-        }        
-        if (Input.GetButtonDown("LeftAim"))
-        {
-            //todo handle left rotation according to forward
-        }
-        if (Input.GetButtonDown("Throw") && _isAiming)
-        {
-            ExitAimMode();
+            EnterAimMode();
         }
 
+        // Only move target if aiming
         if (_isAiming)
         {
-            _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
+            HandleAimModePhysics();
+        }
+
+        if (Input.GetButtonUp("Throw"))
+        {
+            Debug.Log("Throw");
+            if (!_caughtJew)
+            {
+                return;
+            }
+
+            var normDirection = (_target.transform.position - transform.position).normalized;
+            transform.parent.rotation = Quaternion.LookRotation(normDirection);
+            _parentAnimator.SetTrigger("Throw");
         }
     }
 
@@ -103,63 +82,41 @@ public class ThrowerController : MonoBehaviour
         return targetLoc;
     }
 
-    private void HandleAimMode()
+    private void HandleAimModePhysics()
     {
-        
-        if (Input.GetButtonDown("Throw"))
+        // If direction is withing boundaries then switch A and D 
+        //var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
+        if (Input.GetButton("LeftAim"))
         {
-            EnterAimMode();
+            //if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
+            //{
+            //    _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
+            //}
+            //else
+            //{
+                _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
+            //}
+        }
+        else if (Input.GetButton("RightAim"))
+        {
+            //if (degree >= -135f && degree <= -45f)
+            //{
+            //    _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
+            //}
+            //else
+            //{
+                _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
+            //}
         }
 
-        // Only move target if aiming
-        if (_isAiming)
+        if (Input.GetButton("Throw"))
         {
-            // If direction is withing boundaries then switch A and D 
-            //var degree = Mathf.Atan2(-_targetOriginalForward.z, -_targetOriginalForward.x) * Mathf.Rad2Deg;
-            if (Input.GetButton("LeftAim"))
+            if (!_caughtJew)
             {
-                //if (degree >= -(180f - _boundaryDegree) && degree <= -_boundaryDegree)
-                //{
-                //    _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-                //}
-                //else
-                //{
-                _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-                //}
-            }
-            else if (Input.GetButton("RightAim"))
-            {
-                //if (degree >= -135f && degree <= -45f)
-                //{
-                //    _target.transform.position += _targetOriginalLeft * (throwForce * Time.deltaTime);
-                //}
-                //else
-                //{
-                _target.transform.position += _targetOriginalRight * (throwForce * Time.deltaTime);
-                //}
+                return;
             }
 
-            if (Input.GetButton("Throw"))
-            {
-                if (!_caughtJew)
-                {
-                    return;
-                }
-
-                _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
-            }
-            if (Input.GetButtonUp("Throw"))
-            {
-                Debug.Log("Throw");
-                if (!_caughtJew)
-                {
-                    return;
-                }
-
-                var normDirection = (_target.transform.position - transform.position).normalized;
-                transform.parent.rotation = Quaternion.LookRotation(normDirection);
-                _parentAnimator.SetTrigger("Throw");
-            }
+            _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
         }
     }
 
