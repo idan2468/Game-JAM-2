@@ -97,7 +97,7 @@ public class MusicController : Singleton<MusicController>
 
     public void PlayMenuBGM()
     {
-        var toPlay = sounds[SoundEffects.MainMenu];
+        var toPlay = sounds[SoundEffects.BGM];
         if (BGMaudioSource.clip != null && BGMaudioSource.clip == toPlay) return;
         BGMaudioSource.clip = toPlay;
         BGMaudioSource.Play();
