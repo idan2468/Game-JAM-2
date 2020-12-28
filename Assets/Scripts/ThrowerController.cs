@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using PathCreation;
 
@@ -27,6 +28,7 @@ public class ThrowerController : MonoBehaviour
 
     [SerializeField] private Animator _parentAnimator;
     public bool CanCatchJew => _currThrowingObj == null;
+    [SerializeField] private bool useNewMoveMode = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,19 +42,47 @@ public class ThrowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        HandleAimModePhysics();
-        if (Input.GetButtonUp("Throw"))
+        if (!useNewMoveMode)
         {
-            Debug.Log("Throw");
-            if (!_caughtJew)
-            {
-                return;
-            }
+            HandleAimMode();    
+        }
+        else
+        {
+            HandleAimModeNew();    
+        }
+    }
 
-            var normDirection = (_target.transform.position - transform.position).normalized;
-            transform.parent.rotation = Quaternion.LookRotation(normDirection);
-            _parentAnimator.SetTrigger("Throw");
+    private void HandleAimModeNew()
+    {
+        if (Input.GetButtonDown("Throw") && !_isAiming)
+        {
+            EnterAimMode();    
+        }
+        
+        if (Input.GetButtonDown("UpAim"))
+        {
+            //todo handle up rotation according to forward
+        }
+        if (Input.GetButtonDown("DownAim"))
+        {
+            //todo handle down rotation according to forward
+        }        
+        if (Input.GetButtonDown("RightAim"))
+        {
+            //todo handle right rotation according to forward
+        }        
+        if (Input.GetButtonDown("LeftAim"))
+        {
+            //todo handle left rotation according to forward
+        }
+        if (Input.GetButtonDown("Throw") && _isAiming)
+        {
+            ExitAimMode();
+        }
+
+        if (_isAiming)
+        {
+            _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
         }
     }
 
@@ -73,7 +103,7 @@ public class ThrowerController : MonoBehaviour
         return targetLoc;
     }
 
-    private void HandleAimModePhysics()
+    private void HandleAimMode()
     {
         
         if (Input.GetButtonDown("Throw"))
@@ -117,6 +147,18 @@ public class ThrowerController : MonoBehaviour
                 }
 
                 _target.transform.position += _targetOriginalForward * (throwForce * Time.deltaTime);
+            }
+            if (Input.GetButtonUp("Throw"))
+            {
+                Debug.Log("Throw");
+                if (!_caughtJew)
+                {
+                    return;
+                }
+
+                var normDirection = (_target.transform.position - transform.position).normalized;
+                transform.parent.rotation = Quaternion.LookRotation(normDirection);
+                _parentAnimator.SetTrigger("Throw");
             }
         }
     }
