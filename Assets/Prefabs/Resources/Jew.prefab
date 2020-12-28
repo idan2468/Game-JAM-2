@@ -672,7 +672,7 @@ MonoBehaviour:
   _movementBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  _movementSpeed: 0.5
+  _movementSpeed: 3
   _rotationSpeed: 2
   _isUsingAnimator: 1
   _currentState: 0
