@@ -109,12 +109,8 @@ namespace Singletons
                     foundJew = true;
                 }
             }
-<<<<<<< Updated upstream
-            return foundJew ? closestJew.gameObject : null;
-=======
 
             return foundJew ? closestJew : null;
->>>>>>> Stashed changes
         }
 
         public void SpawnJew()
